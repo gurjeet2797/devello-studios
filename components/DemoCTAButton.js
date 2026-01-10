@@ -517,6 +517,7 @@ export default function BuildButton() {
                                 onClick={() => {
                                   const serviceRouteMap = {
                                     'software': '/software',
+                                    'construction': '/construction',
                                     'consulting': '/consulting',
                                     'manufacturing': '/custom'
                                   }
@@ -556,7 +557,21 @@ export default function BuildButton() {
                             <h3 className="text-2xl sm:text-3xl font-semibold text-white mb-2">
                               Work with Devello
                             </h3>
-                            <p className="text-white/70 text-sm sm:text-base">
+                            {selectedService?.serviceType === 'construction' ? (
+                              <p className="text-white/70 text-sm sm:text-base">
+                                We have an in-house construction firm that provides quality renovation services.{' '}
+                                <a 
+                                  href="https://develloconstruction.com" 
+                                  target="_blank" 
+                                  rel="noopener noreferrer"
+                                  className="text-blue-300 underline hover:text-blue-200 transition-colors"
+                                >
+                                  View our portfolio
+                                </a>
+                                {' '}or set up a quick call to discuss your project.
+                              </p>
+                            ) : (
+                              <p className="text-white/70 text-sm sm:text-base">
                                 Set up a quick call to discuss your custom requirements with Devello. For clients seeking professional involvement in the building process.
                               </p>
                             )}
@@ -577,6 +592,7 @@ export default function BuildButton() {
                                 onClick={() => {
                                   const serviceRouteMap = {
                                     'software': '/software',
+                                    'construction': '/construction',
                                     'consulting': '/consulting',
                                     'manufacturing': '/custom'
                                   }
