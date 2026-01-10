@@ -7,9 +7,20 @@ import { UserProfileProvider } from "../components/contexts/UserProfileContext";
 import { ThemeProvider, useTheme } from "../components/Layout";
 import { ToolStateProvider } from "../components/contexts/ToolStateManager";
 import { CartProvider } from "../components/store/CartContext";
-import PerformanceMonitor from "../components/PerformanceMonitor";
-import NavigationStudios from "../components/NavigationStudios";
-import Footer from "../components/Footer";
+// Dynamic imports for better code splitting
+import dynamic from 'next/dynamic';
+
+const PerformanceMonitor = dynamic(() => import("../components/PerformanceMonitor"), {
+  ssr: false
+});
+
+const NavigationStudios = dynamic(() => import("../components/NavigationStudios"), {
+  ssr: true
+});
+
+const Footer = dynamic(() => import("../components/Footer"), {
+  ssr: true
+});
 import ErrorBoundary from "../components/ErrorBoundary";
 import { ModalProvider } from "../components/ModalProvider";
 import { motion } from "framer-motion";

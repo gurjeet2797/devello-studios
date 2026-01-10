@@ -10,6 +10,7 @@
     "dev": "next dev -H 0.0.0.0 -p 3001",
     "dev:studios": "next dev -H 0.0.0.0 -p 3001",
     "build": "next build",
+    "build:fast": "SKIP_ENV_VALIDATION=true next build",
     "start": "next start",
     "lint": "next lint",
     "production-build": "NODE_ENV=production npm run build",
