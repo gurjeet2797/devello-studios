@@ -1,0 +1,1677 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100..1000&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Infinite carousel scroll animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Marquee animation for scrolling logos - seamless loop with 3 sets */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee var(--duration, 20s) linear infinite;
+}
+
+/* Hide scrollbar for carousel */
+.carousel-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar but keep scroll functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Slower pulse with glow animation for processing indicators */
+@keyframes slow-pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(75, 85, 99, 0.4);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 20px 8px rgba(75, 85, 99, 0.6);
+  }
+}
+
+.animate-slow-pulse-glow {
+  animation: slow-pulse-glow 3s ease-in-out infinite;
+}
+
+/* Cal.com Embed Styling - Grey Theme */
+.cal-embed {
+  --cal-brand: #6b7280 !important;
+  --cal-brand-emphasis: #4b5563 !important;
+  --cal-brand-text: #ffffff !important;
+  --cal-brand-subtle: #9ca3af !important;
+}
+
+.cal-embed iframe {
+  border-radius: 0.75rem;
+  background: transparent;
+}
+
+/* Override cal.com blue colors with grey */
+.cal-embed [class*="cal-brand"],
+.cal-embed [class*="cal-primary"],
+.cal-embed button[class*="cal-brand"],
+.cal-embed a[class*="cal-brand"] {
+  background-color: #6b7280 !important;
+  border-color: #6b7280 !important;
+  color: #ffffff !important;
+}
+
+.cal-embed button:hover,
+.cal-embed a:hover {
+  background-color: #4b5563 !important;
+  border-color: #4b5563 !important;
+}
+
+/* CSS Variables for consistent theming */
+:root {
+  --light-bg: #ffffff;
+  --dark-bg: #000000;
+  --aurora-orange: #FFB000;
+  --aurora-white: #FFFFFF;
+  --rays-color: #fff8f0;
+  --waves-dark: #fff;
+  --waves-light: #000;
+  --text-primary-dark: #e8e8e8;
+  --text-primary-light: #000000;
+  --text-shadow-dark: 0 0 10px rgba(255,255,255,0.3), 0 1px 2px rgba(0,0,0,0.4);
+  --text-shadow-light: 0 1px 2px rgba(0,0,0,0.2);
+  --slider-thumb-bg: #fff;
+  --slider-thumb-border: rgba(0, 0, 0, 0.2);
+  --slider-thumb-shadow: rgba(0, 0, 0, 0.2);
+  --light-mode-gradient: linear-gradient(135deg, #e8e3dc 0%, #ddd6cd 25%, #d4c9b8 50%, #c9bca8 75%, #beb09a 100%);
+}
+
+.dark {
+  /* Dark mode overrides */
+  --light-bg: #000000;
+}
+
+/* iPad Pro 13-inch portrait mode fix */
+@media screen and (min-width: 1024px) and (max-width: 1024px) and (orientation: portrait) {
+  .ipad-pro-fix {
+    padding-left: 4rem !important;
+    padding-right: 4rem !important;
+  }
+}
+
+input {
+  @apply border;
+  @apply border-solid;
+  @apply border-gray-300;
+  /* @apply rounded-md; */
+  @apply px-4;
+  @apply py-2;
+}
+
+.border-hairline {
+  @apply border border-black border-opacity-10;
+}
+
+.lil-button {
+  @apply inline-block;
+  @apply text-sm;
+  @apply text-gray-500;
+  @apply rounded-md;
+  @apply py-2;
+  @apply mx-3;
+}
+
+.lil-text {
+  @apply text-sm;
+  @apply text-gray-500;
+}
+
+.lil-text a {
+  @apply text-gray-800;
+  @apply underline;
+}
+
+.icon {
+  @apply inline relative mr-1;
+  top: -0.1em;
+  width: 1.1em;
+  height: 1.1em;
+}
+
+.prose {
+  @apply mt-8;
+  @apply text-lg;
+  @apply text-gray-500;
+  @apply leading-7;
+}
+
+.prose a {
+  @apply text-gray-600;
+  @apply underline;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  padding: 0;
+  margin: 0;
+  height: 100%; /* Ensures it covers the full height for overscroll area */
+  overflow-x: hidden;
+  overflow-y: auto; /* Show scrollbar only when content overflows */
+  background: #000000; /* Default dark background - updated by theme system */
+}
+
+html:not(.dark) {
+  background: #ffffff; /* Light mode background - white */
+  background-attachment: fixed;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  color: white;
+  overflow-x: hidden;
+  overflow-y: visible; /* Let html handle scrolling - no scrollbar on body */
+  background: #000000; /* Default dark background - updated by theme system */
+}
+
+/* Light mode body styling */
+body:not(.dark) {
+  color: #1a1a1a;
+  background: #ffffff;
+  background-attachment: fixed;
+}
+
+/* Mobile viewport - let BeamsBackground handle the background */
+@media screen and (max-width: 768px) {
+  html, body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    min-height: 100dvh; /* Dynamic viewport height for mobile */
+  }
+}
+
+/* Safari-specific viewport fixes */
+@supports (-webkit-touch-callout: none) {
+  html, body {
+    min-height: -webkit-fill-available;
+  }
+}
+
+a {
+  color: inherit;
+}
+
+/* Portal button - uses unified nav button styling from .about-devello-glass */
+/* Only gold state overrides the unified styling */
+
+/* Gold portal button styling */
+.portal-button-gold {
+  background: rgba(234, 179, 8, 0.3) !important;
+  border: 1px solid rgba(234, 179, 8, 0.5) !important;
+  color: rgba(254, 252, 232, 0.9) !important;
+}
+
+.portal-button-gold:hover {
+  background: rgba(234, 179, 8, 0.4) !important;
+}
+
+html:not(.dark) .portal-button-gold {
+  background: rgba(250, 204, 21, 0.7) !important;
+  border: 1px solid rgba(250, 204, 21, 0.6) !important;
+  color: rgba(113, 63, 18, 0.9) !important;
+}
+
+html:not(.dark) .portal-button-gold:hover {
+  background: rgba(250, 204, 21, 0.8) !important;
+}
+
+/* Custom slider styling */
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: var(--slider-thumb-bg, #fff);
+  cursor: pointer;
+  border: 2px solid var(--slider-thumb-border, rgba(0, 0, 0, 0.2));
+  box-shadow: 0 2px 4px var(--slider-thumb-shadow, rgba(0, 0, 0, 0.2));
+}
+
+.slider::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: var(--slider-thumb-bg, #fff);
+  cursor: pointer;
+  border: 2px solid var(--slider-thumb-border, rgba(0, 0, 0, 0.2));
+  box-shadow: 0 2px 4px var(--slider-thumb-shadow, rgba(0, 0, 0, 0.2));
+}
+
+/* UNIFIED STATUS BAR SYSTEM - Mobile Only */
+.status-bar-area {
+  display: none; /* Hidden by default */
+}
+
+@media screen and (max-width: 768px) {
+  .status-bar-area {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: env(safe-area-inset-top);
+    min-height: env(safe-area-inset-top, 0px);
+    background: transparent;
+    z-index: 10; /* Lower than modal z-50 */
+    transition: background-color 0.8s ease-in-out, backdrop-filter 0.3s ease-in-out;
+  }
+  
+  /* When build expanded view is active, status bar should be at same level as backdrop */
+  .status-bar-area.build-expanded-status-bar {
+    z-index: 9998; /* Same as backdrop z-[9998] */
+  }
+  
+  /* When mobile menu is open, status bar should be at same level as menu backdrop */
+  .status-bar-area.mobile-menu-status-bar {
+    z-index: 40; /* Same as menu backdrop z-40 */
+  }
+  
+  /* When product modal is open, status bar should be at same level as modal backdrop */
+  .status-bar-area.product-modal-status-bar {
+    z-index: 9998; /* Same as modal backdrop z-[9998] */
+    /* Match homepage: use safe area directly, no minimum */
+    height: env(safe-area-inset-top);
+    min-height: env(safe-area-inset-top, 0px);
+  }
+
+  .status-bar-area.collection-modal-status-bar {
+    z-index: 9998; /* Same as modal backdrop z-[9997] */
+    /* Match homepage: use safe area directly, no minimum */
+    height: env(safe-area-inset-top);
+    min-height: env(safe-area-inset-top, 0px);
+  }
+
+  .status-bar-area.auth-modal-status-bar {
+    z-index: 9998; /* Same as modal backdrop z-[9997] */
+    /* Match homepage: use safe area directly, no minimum */
+    height: env(safe-area-inset-top);
+    min-height: env(safe-area-inset-top, 0px);
+  }
+}
+
+/* Mobile navigation padding for status bar */
+@media screen and (max-width: 768px) {
+  /* Add padding to navigation to account for status bar */
+  .nav-with-status-bar {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+/* Desktop: Remove status bar interference */
+@media screen and (min-width: 769px) {
+  .nav-with-status-bar {
+    padding-top: 0 !important;
+    z-index: 40; /* Lower than modal z-50 */
+  }
+}
+
+/* Light mode background gradient */
+.light-mode-bg {
+  background: var(--light-mode-gradient, linear-gradient(135deg, #e8e3dc 0%, #ddd6cd 25%, #d4c9b8 50%, #c9bca8 75%, #beb09a 100%));
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Mobile title padding */
+@media screen and (max-width: 768px) {
+  .title-container {
+    padding-top: 2rem;
+    padding-top: calc(env(safe-area-inset-top) + 2rem);
+  }
+  
+  .main-content {
+    padding-top: 2rem;
+    padding-top: calc(env(safe-area-inset-top) + 2rem);
+  }
+  
+  /* Prevent background flickering on mobile */
+  .light-mode-bg {
+    background-attachment: scroll;
+    -webkit-background-attachment: scroll;
+  }
+}
+
+/* Chrome mobile keyboard fix - prevent empty bar above keyboard */
+@media screen and (max-width: 768px) {
+  textarea:focus {
+    position: relative;
+    z-index: 9999;
+  }
+  
+  /* Prevent zoom on input focus in expanded views - iOS Safari requires font-size >= 16px */
+  [class*="z-[9999]"] input,
+  [class*="z-[9999]"] textarea,
+  .fixed input,
+  .fixed textarea {
+    font-size: 16px !important;
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  /* Prevent zoom on expanded view containers */
+  [class*="z-[9999]"] {
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+  }
+}
+
+/* Lighting slider specific styling - better touch handling */
+.lighting-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+  opacity: 0.9;
+  cursor: pointer;
+  /* Better touch handling - no transitions to prevent glitches */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  /* Prevent text selection */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.lighting-slider:hover {
+  opacity: 1;
+}
+
+.lighting-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  /* No transitions to prevent glitches */
+  transition: none;
+  /* Better touch handling */
+  touch-action: manipulation;
+  position: relative;
+  z-index: 1;
+}
+
+.lighting-slider::-webkit-slider-thumb:active {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+}
+
+.lighting-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transition: none;
+  touch-action: manipulation;
+  position: relative;
+  z-index: 1;
+}
+
+.lighting-slider::-moz-range-track {
+  background: rgba(255, 255, 255, 0.2);
+  height: 4px;
+  border-radius: 2px;
+}
+
+/* Prevent webkit slider track styling conflicts */
+.lighting-slider::-webkit-slider-runnable-track {
+  background: rgba(255, 255, 255, 0.2);
+  height: 4px;
+  border-radius: 2px;
+}
+
+/* Override global color for elements with Tailwind dark mode classes */
+.text-gray-800 {
+  color: rgb(31, 41, 55) !important;
+}
+
+.text-gray-700 {
+  color: rgb(55, 65, 81) !important;
+}
+
+.text-gray-600 {
+  color: rgb(75, 85, 99) !important;
+}
+
+.text-gray-500 {
+  color: rgb(107, 114, 128) !important;
+}
+
+.dark .text-gray-800 {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark .text-gray-700 {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark .text-gray-600 {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.dark .text-gray-500 {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* GlassSurface Styles */
+.glass-surface {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 0.26s ease-out;
+}
+
+.glass-surface__filter {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  z-index: -1;
+}
+
+.glass-surface__content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: inherit;
+  position: relative;
+  z-index: 1;
+}
+
+.glass-surface--svg {
+  background: light-dark(hsl(0 0% 100% / var(--glass-frost, 0)), hsl(0 0% 0% / var(--glass-frost, 0)));
+  backdrop-filter: var(--filter-id, url(#glass-filter)) saturate(var(--glass-saturation, 1));
+  box-shadow:
+    0 0 2px 1px light-dark(color-mix(in oklch, black, transparent 85%), color-mix(in oklch, white, transparent 65%))
+      inset,
+    0 0 10px 4px light-dark(color-mix(in oklch, black, transparent 90%), color-mix(in oklch, white, transparent 85%))
+      inset,
+    0px 4px 16px rgba(17, 17, 26, 0.05),
+    0px 8px 24px rgba(17, 17, 26, 0.05),
+    0px 16px 56px rgba(17, 17, 26, 0.05),
+    0px 4px 16px rgba(17, 17, 26, 0.05) inset,
+    0px 8px 24px rgba(17, 17, 26, 0.05) inset,
+    0px 16px 56px rgba(17, 17, 26, 0.05) inset;
+}
+
+.glass-surface--fallback {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px) saturate(1.8) brightness(1.1);
+  -webkit-backdrop-filter: blur(12px) saturate(1.8) brightness(1.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 8px 32px 0 rgba(31, 38, 135, 0.2),
+    0 2px 16px 0 rgba(31, 38, 135, 0.1),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 0 rgba(255, 255, 255, 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  .glass-surface--fallback {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px) saturate(1.8) brightness(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.8) brightness(1.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.2),
+      inset 0 -1px 0 0 rgba(255, 255, 255, 0.1);
+  }
+}
+
+@supports not (backdrop-filter: blur(10px)) {
+  .glass-surface--fallback {
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
+      inset 0 -1px 0 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .glass-surface--fallback::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: inherit;
+    z-index: -1;
+  }
+}
+
+@supports not (backdrop-filter: blur(10px)) {
+  @media (prefers-color-scheme: dark) {
+    .glass-surface--fallback {
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .glass-surface--fallback::before {
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+}
+
+.glass-surface:focus-visible {
+  outline: 2px solid light-dark(#007aff, #0a84ff);
+  outline-offset: 2px;
+}
+
+/* Stepper Component Styles */
+.stepper-container {
+  @apply w-full max-w-4xl mx-auto;
+}
+
+.stepper-progress {
+  @apply w-full mb-4 px-4 pt-4 sm:pt-6;
+}
+
+.stepper-steps {
+  @apply flex items-center justify-center w-full gap-2 sm:gap-4;
+}
+
+.stepper-step {
+  @apply flex items-center relative;
+}
+
+.stepper-marker {
+  @apply flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white text-gray-600 font-medium text-xs shadow-sm transition-all duration-300;
+}
+
+.stepper-step.active .stepper-marker {
+  @apply text-white shadow-lg scale-105;
+  background-color: var(--text-primary-light);
+}
+
+.stepper-step.active .stepper-marker svg {
+  fill: white !important;
+}
+
+.stepper-step.current .stepper-marker {
+  @apply shadow-md;
+  background-color: var(--aurora-white);
+  color: #111827;
+}
+
+
+.stepper-number {
+  @apply font-semibold;
+}
+
+/* Force correct text color for step 1 headings */
+.stepper-container .step-content h2,
+.stepper-container .step-content motion.h2,
+.stepper-container motion.h2,
+.stepper-container h2 {
+  color: #111827 !important;
+}
+
+.dark .stepper-container .step-content h2,
+.dark .stepper-container .step-content motion.h2,
+.dark .stepper-container motion.h2,
+.dark .stepper-container h2 {
+  color: #ffffff !important;
+}
+
+/* Override any Tailwind classes */
+.text-gray-900 {
+  color: #111827 !important;
+}
+
+.dark .text-gray-900 {
+  color: #ffffff !important;
+}
+
+
+.stepper-connector {
+  @apply flex-1 h-1 bg-gray-300 mx-3 sm:mx-4 relative overflow-hidden rounded-full transition-all duration-300;
+}
+
+.stepper-connector-inner {
+  @apply h-full transition-all duration-500 ease-out;
+  background-color: var(--text-primary-light);
+}
+
+.dark .stepper-connector {
+  @apply bg-gray-600;
+}
+
+.stepper-content-wrapper {
+  @apply w-full max-w-3xl mx-auto px-4 sm:px-6 pt-2;
+}
+
+.step-content {
+  @apply w-full text-center space-y-4;
+}
+
+.stepper-navigation {
+  @apply w-full mt-8 flex justify-center items-center gap-4 sm:gap-6 px-4;
+}
+
+.stepper-nav-buttons {
+  @apply flex gap-4 sm:gap-6;
+}
+
+.stepper-nav-buttons.spread {
+  @apply justify-between w-full;
+}
+
+.stepper-nav-buttons.end {
+  @apply justify-end;
+}
+
+.stepper-button {
+  @apply px-6 py-2 sm:px-8 sm:py-3 rounded-full font-semibold text-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 transform hover:scale-105 active:scale-95;
+}
+
+/* Mobile-specific styling for Get Started button */
+@media (max-width: 640px) {
+  .stepper-button {
+    padding: 1rem 2rem !important;
+    font-size: 1.25rem !important;
+  }
+}
+
+.stepper-button-back {
+  @apply text-white focus:ring-gray-400 rounded-full w-12 h-12 flex items-center justify-center !important;
+  background-color: var(--text-primary-light) !important;
+  color: white !important;
+  padding: 0 !important;
+  font-size: 1rem !important;
+}
+
+.stepper-button-back:hover {
+  background-color: var(--text-primary-light);
+  color: white;
+  opacity: 0.9;
+}
+
+.stepper-button-next {
+  @apply text-white shadow-lg hover:shadow-xl;
+  background-color: var(--text-primary-light);
+  color: white;
+}
+
+.stepper-button-next:disabled {
+  @apply hover:scale-100 hover:shadow-lg;
+  transform: none !important;
+}
+
+.stepper-button-next:disabled:hover {
+  transform: none !important;
+  scale: 1 !important;
+}
+
+.stepper-button-next:hover {
+  background-color: var(--text-primary-light);
+  color: white;
+  opacity: 0.9;
+}
+
+/* Split Button Styles */
+.stepper-button-split {
+  @apply relative overflow-hidden;
+  position: relative;
+  white-space: nowrap;
+}
+
+.stepper-button-white {
+  background-color: white !important;
+  color: #111827 !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+.stepper-button-white:hover {
+  background-color: #f9fafb !important;
+  color: #111827 !important;
+}
+
+.dark .stepper-button-white {
+  background-color: white !important;
+  color: #111827 !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.dark .stepper-button-white:hover {
+  background-color: #f9fafb !important;
+  color: #111827 !important;
+}
+
+.stepper-button-left {
+  @apply px-3 py-2 sm:px-3.5 sm:py-2;
+  width: auto;
+  min-width: 0;
+  font-size: 0.875rem;
+  margin: 0 -1px;
+  background-color: #E0E7FF !important; /* Pastel blue */
+  color: #3730A3 !important;
+  border: 1px solid rgba(99, 102, 241, 0.2) !important;
+}
+
+.stepper-button-left:hover {
+  background-color: #C7D2FE !important;
+}
+
+.stepper-button-middle {
+  @apply px-4 py-2 sm:px-5 sm:py-2;
+  width: auto;
+  min-width: 0;
+  font-size: 0.875rem;
+  margin: 0 -1px;
+  background-color: #FEF3C7 !important; /* Pastel yellow */
+  color: #92400E !important;
+  border: 1px solid rgba(217, 119, 6, 0.2) !important;
+}
+
+.stepper-button-middle:hover {
+  background-color: #FDE68A !important;
+}
+
+.stepper-button-right {
+  @apply px-3 py-2 sm:px-3.5 sm:py-2;
+  width: auto;
+  min-width: 0;
+  font-size: 0.875rem;
+  margin: 0 -1px;
+  background-color: #FCE7F3 !important; /* Pastel pink */
+  color: #9F1239 !important;
+  border: 1px solid rgba(219, 39, 119, 0.2) !important;
+}
+
+.stepper-button-right:hover {
+  background-color: #FBCFE8 !important;
+}
+
+.dark .stepper-button-left {
+  background-color: #E0E7FF !important;
+  color: #3730A3 !important;
+}
+
+.dark .stepper-button-middle {
+  background-color: #FEF3C7 !important;
+  color: #92400E !important;
+}
+
+.dark .stepper-button-right {
+  background-color: #FCE7F3 !important;
+  color: #9F1239 !important;
+}
+
+.stepper-button-split::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.stepper-button-left::before,
+.stepper-button-right::before {
+  background: linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.5) 50%, transparent 100%);
+}
+
+/* Liquid border animation */
+.stepper-button-split.liquid-border::before {
+  opacity: 1;
+  animation: liquidFlow 2s ease-in-out infinite;
+}
+
+@keyframes liquidFlow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Dark mode styles */
+.dark .stepper-marker {
+  @apply bg-gray-800 text-gray-300 shadow-lg;
+}
+
+.dark .stepper-step.active .stepper-marker {
+  @apply text-white shadow-xl;
+  background-color: var(--text-primary-dark);
+}
+
+.dark .stepper-step.active .stepper-marker svg {
+  fill: black !important;
+}
+
+.dark .stepper-step.current .stepper-marker {
+  @apply shadow-lg border border-gray-400;
+  background-color: var(--dark-bg);
+  color: var(--text-primary-dark);
+}
+
+.dark .stepper-connector {
+  @apply bg-gray-600;
+}
+
+.dark .stepper-connector-inner {
+  background-color: var(--text-primary-dark);
+}
+
+.dark .stepper-button-back {
+  @apply shadow-xl rounded-full w-12 h-12 flex items-center justify-center !important;
+  background-color: var(--text-primary-dark) !important;
+  color: black !important;
+  padding: 0 !important;
+  font-size: 1rem !important;
+}
+
+.dark .stepper-button-back:hover {
+  background-color: var(--text-primary-dark);
+  color: black;
+  opacity: 0.9;
+}
+
+.dark .stepper-button-next {
+  @apply shadow-xl;
+  background-color: var(--text-primary-dark);
+  color: black;
+}
+
+.dark .stepper-button-next:disabled {
+  @apply hover:scale-100 hover:shadow-xl;
+  transform: none !important;
+}
+
+.dark .stepper-button-next:disabled:hover {
+  transform: none !important;
+  scale: 1 !important;
+}
+
+.dark .stepper-button-next:hover {
+  background-color: var(--text-primary-dark);
+  color: black;
+  opacity: 0.9;
+}
+
+/* Additional stepper improvements */
+.active-dot {
+  @apply w-2 h-2 rounded-full bg-white;
+}
+
+.check-icon {
+  @apply w-4 h-4;
+}
+
+/* Form input focus improvements */
+.stepper-container input:focus,
+.stepper-container textarea:focus {
+  @apply ring-2 ring-blue-500 ring-offset-2;
+}
+
+.dark .stepper-container input:focus,
+.dark .stepper-container textarea:focus {
+  @apply ring-blue-400;
+}
+
+/* Smooth transitions for form elements */
+.stepper-container input,
+.stepper-container textarea,
+.stepper-container button {
+  @apply transition-all duration-300;
+}
+
+/* Mobile responsiveness improvements */
+@media (max-width: 640px) {
+  .stepper-steps {
+    @apply gap-1;
+  }
+  
+  .stepper-marker {
+    @apply w-5 h-5 text-xs;
+  }
+  
+  .stepper-connector {
+    @apply mx-1;
+  }
+  
+  .stepper-button {
+    @apply px-4 py-2 text-base;
+  }
+}
+
+/* Mobile menu open - blur page background */
+@media screen and (max-width: 768px) {
+  body.mobile-menu-open {
+    overflow: hidden !important;
+  }
+  
+  /* Blur only the main page content, not nav or menu */
+  /* Add transition to main element so blur animates smoothly */
+  main {
+    transition: filter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  body.mobile-menu-open main {
+    filter: blur(8px);
+  }
+  
+  /* Ensure nav and menu are never blurred */
+  body.mobile-menu-open nav,
+  body.mobile-menu-open [class*="mobile-menu"],
+  body.mobile-menu-open [class*="AnimatePresence"] {
+    filter: none !important;
+  }
+}
+
+/* Product modal open - blur page background */
+body.product-modal-open {
+  overflow: hidden !important;
+}
+
+/* Blur only the main page content, not nav or modal */
+body.product-modal-open main {
+  filter: blur(8px);
+  transition: filter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Ensure nav and modal are never blurred */
+body.product-modal-open nav,
+body.product-modal-open .product-modal-container,
+body.product-modal-open .product-modal-container * {
+  filter: none !important;
+}
+
+/* Collection modal open - blur page background */
+body.collection-modal-open {
+  overflow: hidden !important;
+}
+
+/* Blur only the main page content, not nav or modal */
+body.collection-modal-open main {
+  filter: blur(8px);
+  transition: filter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Ensure nav and modal are never blurred */
+body.collection-modal-open nav,
+body.collection-modal-open .collection-modal-container,
+body.collection-modal-open .collection-modal-container * {
+  filter: none !important;
+}
+
+/* Auth modal open - blur page background */
+body.auth-modal-open {
+  overflow: hidden !important;
+}
+
+/* Blur only the main page content, not nav or modal */
+body.auth-modal-open main {
+  filter: blur(8px);
+  transition: filter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Ensure nav and modal are never blurred */
+body.auth-modal-open nav,
+body.auth-modal-open .auth-modal-container,
+body.auth-modal-open .auth-modal-container * {
+  filter: none !important;
+}
+
+/* Global fix: Remove bottom padding from modal containers in browser mode to prevent white space */
+/* This prevents the body's background color from showing through at the bottom */
+/* Applied to all modal containers that are fixed and use safe area insets */
+/* Fix documented in front end repairs.md - paddingBottom: 'env(safe-area-inset-bottom)' causes white space */
+.fixed.inset-0[class*="modal"],
+.fixed.inset-0[class*="Modal"],
+.fixed.inset-0[class*="modal-container"],
+.fixed.inset-x-0[class*="modal"] {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Ensure product modal container covers full viewport when portaled to body */
+.product-modal-container {
+  height: 100vh !important;
+  height: 100dvh !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+  min-height: -webkit-fill-available !important;
+  bottom: 0 !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Unified Nav Bar Button Styling - All nav buttons use this */
+.about-devello-glass {
+  --c-glass: transparent;
+  --c-light: #fff;
+  --c-dark: #000;
+  --c-content: #224;
+  --c-action: #0052f5;
+  --c-bg: #e8e8e9;
+  --glass-reflex-dark: 1;
+  --glass-reflex-light: 1;
+  --saturation: 150%;
+  --chromatic-radius: 0px; /* Edge refraction/rainbow effect radius - increase for wider rainbow */
+  --chromatic-intensity: 0; /* 0-1: 0 = no effect, 1 = full rainbow */
+  
+  /* Nav button background colors - neutral gray/beige (original opacity/transparency) */
+  --nav-bg-dark: rgba(220, 220, 220, 0.2); /* lighter gray with reduced opacity */
+  --nav-bg-light: rgba(220, 220, 220, 0.2); /* lighter gray with reduced opacity */
+  --nav-border-dark: rgba(200, 200, 200, 0.3); /* lighter gray border with reduced opacity */
+  --nav-border-light: rgba(200, 200, 200, 0.3); /* lighter gray border with reduced opacity */
+  --nav-bg-hover-dark: rgba(230, 230, 230, 0.3); /* lighter gray hover with reduced opacity */
+  --nav-bg-hover-light: rgba(230, 230, 230, 0.3); /* lighter gray hover with reduced opacity */
+  /* Nav button text colors - light gray */
+  --nav-text-dark: rgba(255, 255, 255, 1); /* full white */
+  --nav-text-light: rgba(0, 0, 0, 1); /* full black */
+
+  font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+  background-color: var(--nav-bg-dark);
+  border: 1px solid var(--nav-border-dark);
+  backdrop-filter: blur(4px) saturate(var(--saturation));
+  -webkit-backdrop-filter: blur(4px) saturate(var(--saturation));
+  color: var(--nav-text-dark);
+  position: relative;
+  transform-origin: center center;
+  box-shadow: 
+    inset 0 0 0 1px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
+    inset 1.8px 3px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
+    inset -2px -2px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
+    inset -3px -8px 1px -6px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
+    inset -0.3px -1px 4px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
+    inset -1.5px 2.5px 0px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+    inset 0px 3px 4px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+    inset 2px -6.5px 1px -4px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent);
+  transition: background-color 400ms cubic-bezier(1, 0, 0.4, 1),
+    box-shadow 400ms cubic-bezier(1, 0, 0.4, 1),
+    border-color 400ms cubic-bezier(1, 0, 0.4, 1);
+}
+
+/* Hover state for all nav buttons */
+.about-devello-glass:hover {
+  background-color: var(--nav-bg-hover-dark);
+}
+
+/* Disable hover effect for containers */
+.about-devello-glass.no-hover:hover {
+  background-color: var(--nav-bg-dark) !important;
+}
+
+html:not(.dark) .about-devello-glass.no-hover:hover {
+  background-color: var(--nav-bg-light) !important;
+}
+
+/* Light mode nav button styling */
+html:not(.dark) .about-devello-glass {
+  background-color: var(--nav-bg-light);
+  border-color: var(--nav-border-light);
+  color: var(--nav-text-light);
+}
+
+html:not(.dark) .about-devello-glass:hover {
+  background-color: var(--nav-bg-hover-light);
+}
+
+/* Nav button hover states - defined early but will be overridden by more specific rules if needed */
+nav .about-devello-glass:hover {
+  background-color: var(--nav-bg-hover-dark) !important;
+}
+
+html:not(.dark) nav .about-devello-glass:hover {
+  background-color: var(--nav-bg-hover-light) !important;
+}
+
+/* Background-aware text color for nav buttons on home page */
+/* Override all text colors in nav buttons when background-aware mode is active */
+nav.nav-text-dark .about-devello-glass,
+nav.nav-text-dark .about-devello-glass *,
+nav.nav-text-dark .about-devello-glass span,
+nav.nav-text-dark .about-devello-glass div {
+  color: rgba(0, 0, 0, 0.9) !important;
+}
+
+nav.nav-text-light .about-devello-glass,
+nav.nav-text-light .about-devello-glass *,
+nav.nav-text-light .about-devello-glass span,
+nav.nav-text-light .about-devello-glass div {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Override specific text color utilities that might conflict */
+nav.nav-text-dark .text-white,
+nav.nav-text-dark .text-white\/90,
+nav.nav-text-dark .text-white\/80 {
+  color: rgba(0, 0, 0, 0.9) !important;
+}
+
+nav.nav-text-light .text-black,
+nav.nav-text-light .text-black\/90,
+nav.nav-text-light .text-black\/80 {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Chromatic aberration / rainbow edge effect */
+.about-devello-glass::before {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--chromatic-radius));
+  border-radius: inherit;
+  padding: var(--chromatic-radius);
+  background: linear-gradient(
+    45deg,
+    rgba(255, 0, 0, var(--chromatic-intensity)) 0%,
+    rgba(255, 165, 0, var(--chromatic-intensity)) 14%,
+    rgba(255, 255, 0, var(--chromatic-intensity)) 28%,
+    rgba(0, 255, 0, var(--chromatic-intensity)) 42%,
+    rgba(0, 0, 255, var(--chromatic-intensity)) 57%,
+    rgba(75, 0, 130, var(--chromatic-intensity)) 71%,
+    rgba(238, 130, 238, var(--chromatic-intensity)) 85%,
+    rgba(255, 0, 0, var(--chromatic-intensity)) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: -1;
+  opacity: var(--chromatic-intensity);
+}
+
+/* Dark mode overrides */
+.dark .about-devello-glass,
+html.dark .about-devello-glass {
+  --c-glass: #bbbbbc;
+  --c-light: #fff;
+  --c-dark: #000;
+  --c-content: #e1e1e1;
+  --c-action: #03d5ff;
+  --c-bg: #1b1b1d;
+  --glass-reflex-dark: 2;
+  --glass-reflex-light: 0.3;
+  --saturation: 150%;
+}
+
+/* Light mode variable overrides */
+html:not(.dark) .about-devello-glass {
+  --c-glass: #bbbbbc;
+  --c-light: #fff;
+  --c-dark: #000;
+  --c-content: #224;
+  --c-action: #0052f5;
+  --c-bg: #e8e8e9;
+  --glass-reflex-dark: 1;
+  --glass-reflex-light: 1;
+  --saturation: 150%;
+}
+
+/* Build button - transparent glass to show gradient background */
+.build-button-gradient.about-devello-glass {
+  background-color: transparent !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  color: white !important;
+}
+
+html:not(.dark) .build-button-gradient.about-devello-glass {
+  background-color: transparent !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  color: white !important;
+}
+
+.build-button-gradient.about-devello-glass:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Fix for logo circle - hide ::before pseudo-element that causes dot artifact */
+.about-devello-glass.logo-circle-fix::before {
+  display: none !important;
+}
+
+/* Fix for network logo containers - hide ::before pseudo-element that causes dot artifact */
+.logo-backdrop + .about-devello-glass::before {
+  display: none !important;
+}
+
+/* Also hide ::before for about-devello-glass inside relative containers with logo-backdrop */
+.relative:has(.logo-backdrop) .about-devello-glass::before {
+  display: none !important;
+}
+
+/* Logo glass blue - MUST come AFTER all other .about-devello-glass rules */
+/* Allow tinting like other glass buttons - use CSS variables */
+.about-devello-glass.logo-glass-blue {
+  --nav-bg-dark: rgba(59, 130, 246, 0.6) !important;
+  --nav-bg-light: rgba(0, 0, 0, 0.5) !important;
+  --nav-bg-hover-dark: rgba(59, 130, 246, 0.7) !important;
+  --nav-bg-hover-light: rgba(0, 0, 0, 0.6) !important;
+}
+
+html:not(.dark) .about-devello-glass.logo-glass-blue {
+  background-color: var(--nav-bg-light) !important;
+  border-color: rgba(0, 0, 0, 0.3) !important;
+  backdrop-filter: blur(2px) !important;
+  -webkit-backdrop-filter: blur(2px) !important;
+}
+
+.dark .about-devello-glass.logo-glass-blue,
+html.dark .about-devello-glass.logo-glass-blue {
+  background-color: var(--nav-bg-dark) !important;
+}
+
+.about-devello-glass.logo-glass-blue:hover {
+  background-color: var(--nav-bg-hover-dark) !important;
+}
+
+html:not(.dark) .about-devello-glass.logo-glass-blue:hover {
+  background-color: var(--nav-bg-hover-light) !important;
+  border-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.dark .about-devello-glass.logo-glass-blue:hover,
+html.dark .about-devello-glass.logo-glass-blue:hover {
+  background-color: var(--nav-bg-hover-dark) !important;
+}
+
+/* Also keep the logo-backdrop selector for compatibility */
+.logo-backdrop + .about-devello-glass {
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Remove haze/blur from admin portal content buttons (but NOT nav buttons or logo) */
+/* Apply to all admin portal buttons first */
+.admin-portal .about-devello-glass {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* CRITICAL: Nav buttons in admin portal must match regular nav buttons exactly */
+/* Use maximum specificity to ensure these rules win over .admin-portal .about-devello-glass */
+.admin-portal nav .about-devello-glass,
+.admin-portal nav .about-devello-glass.rounded-full,
+.admin-portal nav a .about-devello-glass,
+.admin-portal nav div .about-devello-glass,
+.admin-portal nav button .about-devello-glass,
+.admin-portal nav .about-devello-glass * {
+  background-color: var(--nav-bg-dark) !important;
+  border-color: var(--nav-border-dark) !important;
+  border: 1px solid var(--nav-border-dark) !important;
+  color: var(--nav-text-dark) !important;
+  text-shadow: none !important;
+  filter: none !important;
+  backdrop-filter: blur(4px) saturate(var(--saturation)) !important;
+  -webkit-backdrop-filter: blur(4px) saturate(var(--saturation)) !important;
+  box-shadow: 
+    inset 0 0 0 1px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
+    inset 1.8px 3px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
+    inset -2px -2px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
+    inset -3px -8px 1px -6px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
+    inset -0.3px -1px 4px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
+    inset -1.5px 2.5px 0px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+    inset 0px 3px 4px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+    inset 2px -6.5px 1px -4px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent) !important;
+}
+
+html:not(.dark) .admin-portal nav .about-devello-glass,
+html:not(.dark) .admin-portal nav .about-devello-glass.rounded-full,
+html:not(.dark) .admin-portal nav a .about-devello-glass,
+html:not(.dark) .admin-portal nav div .about-devello-glass,
+html:not(.dark) .admin-portal nav button .about-devello-glass,
+html:not(.dark) .admin-portal nav .about-devello-glass * {
+  background-color: var(--nav-bg-light) !important;
+  border-color: var(--nav-border-light) !important;
+  border: 1px solid var(--nav-border-light) !important;
+  color: var(--nav-text-light) !important;
+  text-shadow: none !important;
+  filter: none !important;
+  backdrop-filter: blur(4px) saturate(var(--saturation)) !important;
+  -webkit-backdrop-filter: blur(4px) saturate(var(--saturation)) !important;
+  box-shadow: 
+    inset 0 0 0 1px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 10%), transparent),
+    inset 1.8px 3px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 90%), transparent),
+    inset -2px -2px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 80%), transparent),
+    inset -3px -8px 1px -6px color-mix(in srgb, var(--c-light) calc(var(--glass-reflex-light) * 60%), transparent),
+    inset -0.3px -1px 4px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 12%), transparent),
+    inset -1.5px 2.5px 0px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+    inset 0px 3px 4px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 20%), transparent),
+    inset 2px -6.5px 1px -4px color-mix(in srgb, var(--c-dark) calc(var(--glass-reflex-dark) * 10%), transparent) !important;
+}
+
+/* Ensure navigation glass buttons maintain consistent appearance on all pages (non-admin) */
+.site-nav-root .about-devello-glass {
+  background-color: var(--nav-bg-dark) !important;
+  border-color: var(--nav-border-dark) !important;
+  color: var(--nav-text-dark) !important;
+  text-shadow: none !important;
+  filter: none !important;
+  backdrop-filter: blur(4px) saturate(var(--saturation)) !important;
+  -webkit-backdrop-filter: blur(4px) saturate(var(--saturation)) !important;
+}
+
+html:not(.dark) .site-nav-root .about-devello-glass {
+  background-color: var(--nav-bg-light) !important;
+  border-color: var(--nav-border-light) !important;
+  color: var(--nav-text-light) !important;
+  text-shadow: none !important;
+  filter: none !important;
+  backdrop-filter: blur(4px) saturate(var(--saturation)) !important;
+  -webkit-backdrop-filter: blur(4px) saturate(var(--saturation)) !important;
+}
+
+/* Dropdown items use has-tint class like Store button - CSS variables override nav defaults */
+.site-nav-root .dropdown-item.about-devello-glass.has-tint {
+  background-color: var(--tint-bg) !important;
+  border-color: var(--tint-border) !important;
+}
+
+html:not(.dark) .site-nav-root .dropdown-item.about-devello-glass.has-tint {
+  background-color: var(--tint-bg) !important;
+  border-color: var(--tint-border) !important;
+}
+
+/* Allow tinted nav buttons to override default colors */
+.site-nav-root .about-devello-glass.has-tint {
+  background-color: var(--tint-bg, var(--nav-bg-dark)) !important;
+  border-color: var(--tint-border, var(--nav-border-dark)) !important;
+}
+
+html:not(.dark) .site-nav-root .about-devello-glass.has-tint {
+  background-color: var(--tint-bg, var(--nav-bg-light)) !important;
+  border-color: var(--tint-border, var(--nav-border-light)) !important;
+}
+
+/* Fix mobile menu button flash - disable transitions */
+.mobile-menu-button-fix {
+  transition: none !important;
+}
+
+.dark .mobile-menu-button-fix,
+html.dark .mobile-menu-button-fix {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+html:not(.dark) .mobile-menu-button-fix {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Partner logo SVG styling - ensure perfect centering */
+.partner-logo-svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.partner-logo-svg svg {
+  /* Override hardcoded width="100%" height="50" attributes from SVG */
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  display: block !important;
+  object-fit: contain !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Preserve SVG text fill colors */
+.partner-logo-svg svg text[fill="#000000"] {
+  fill: #000000;
+}
+
+.partner-logo-svg svg text[fill="#FFFFFF"] {
+  fill: #FFFFFF;
+}
+
+/* Footer mobile blur - only apply backdrop blur on mobile devices */
+.footer-mobile-blur {
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+}
+
+@media (min-width: 768px) {
+  .footer-mobile-blur {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* Logo backdrop for network component logos */
+.logo-backdrop {
+  --c-glass: transparent;
+  --c-light: #fff;
+  --c-dark: #000;
+  --glass-reflex-dark: 1;
+  --glass-reflex-light: 1;
+  --saturation: 150%;
+  
+  /* Logo backdrop colors - faint black for light mode */
+  --logo-bg-dark: rgba(220, 220, 220, 0.4);
+  --logo-bg-light: rgba(0, 0, 0, 0.1);
+  --logo-border-dark: rgba(200, 200, 200, 0.5);
+  --logo-border-light: rgba(0, 0, 0, 0.15);
+  
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.logo-path {
+  fill: var(--logo-bg-dark);
+  stroke: var(--logo-border-dark);
+  stroke-width: 0.5;
+  opacity: 1;
+}
+
+/* Thin stroke for specific logos */
+.logo-path-thin {
+  stroke-width: 0.25;
+}
+
+/* Blue tint for top left logo - removed filter */
+.logo-blue-tint {
+  filter: none;
+}
+
+/* Light mode logo backdrop */
+html:not(.dark) .logo-path {
+  fill: var(--logo-bg-light);
+  stroke: var(--logo-border-light);
+}
+
+/* Dark mode overrides */
+.dark .logo-path,
+html.dark .logo-path {
+  --glass-reflex-dark: 2;
+  --glass-reflex-light: 0.3;
+  fill: var(--logo-bg-dark);
+  stroke: var(--logo-border-dark);
+}
+
+/* Apply backdrop filter to the SVG container using a pseudo-element */
+/* Disabled - using SVG paths directly instead of clip-path */
+.logo-backdrop::after {
+  display: none;
+}
+
+html:not(.dark) .logo-backdrop::after {
+  display: none;
+}
+
+/* Loading Animation */
+body.loading-body {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.loading,
+.loading::before,
+.loading::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left-color: rgba(255, 255, 255, 0.4);
+  -webkit-border-radius: 999px;
+  -moz-border-radius: 999px;
+  border-radius: 999px;
+}
+
+.loading {
+  margin: -25px 0 0 -25px;
+  height: 50px;
+  width: 50px;
+  -webkit-animation: animation-rotate 1000ms linear infinite;
+  -moz-animation: animation-rotate 1000ms linear infinite;
+  -o-animation: animation-rotate 1000ms linear infinite;
+  animation: animation-rotate 1000ms linear infinite;
+}
+
+.loading::before {
+  content: "";
+  margin: -23px 0 0 -23px;
+  height: 44px;
+  width: 44px;
+  -webkit-animation: animation-rotate 1000ms linear infinite;
+  -moz-animation: animation-rotate 1000ms linear infinite;
+  -o-animation: animation-rotate 1000ms linear infinite;
+  animation: animation-rotate 1000ms linear infinite;
+}
+
+.loading::after {
+  content: "";
+  margin: -29px 0 0 -29px;
+  height: 56px;
+  width: 56px;
+  -webkit-animation: animation-rotate 2000ms linear infinite;
+  -moz-animation: animation-rotate 2000ms linear infinite;
+  -o-animation: animation-rotate 2000ms linear infinite;
+  animation: animation-rotate 2000ms linear infinite;
+}
+
+@-webkit-keyframes animation-rotate {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes animation-rotate {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-o-keyframes animation-rotate {
+  100% {
+    -o-transform: rotate(360deg);
+  }
+}
+
+@keyframes animation-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Make background overflow visible when any modal is open */
+body.build-expanded-open ~ * .flex.flex-col,
+body.collection-modal-open ~ * .flex.flex-col,
+body:has([class*="modal-open"]) .flex.flex-col {
+  overflow: visible !important;
+}
+
+/* Alternative: Use body class detection */
+body.build-expanded-open main,
+body.collection-modal-open main {
+  overflow: visible !important;
+}
+
+/* Make the app container overflow visible when modal is open */
+body.build-expanded-open #__next > div,
+body.collection-modal-open #__next > div {
+  overflow: visible !important;
+}
+
+/* Dynamic nav text color - override CSS variables with inline styles */
+/* Must be at the end to override all other rules */
+.about-devello-glass.nav-dynamic-color {
+  color: var(--dynamic-nav-color) !important;
+}
+
+.about-devello-glass.nav-dynamic-color *,
+.about-devello-glass.nav-dynamic-color span,
+.about-devello-glass.nav-dynamic-color .nav-dynamic-text {
+  color: inherit !important;
+}
+
+.nav-dynamic-text {
+  color: inherit !important;
+}
+
+/* Override site-nav-root and admin-portal rules */
+.site-nav-root .about-devello-glass.nav-dynamic-color,
+.site-nav-root .about-devello-glass.nav-dynamic-color *,
+html.dark .about-devello-glass.nav-dynamic-color,
+html.dark .about-devello-glass.nav-dynamic-color *,
+html:not(.dark) .about-devello-glass.nav-dynamic-color,
+html:not(.dark) .about-devello-glass.nav-dynamic-color *,
+.admin-portal nav .about-devello-glass.nav-dynamic-color,
+.admin-portal nav .about-devello-glass.nav-dynamic-color * {
+  color: var(--dynamic-nav-color) !important;
+}
+
+
+
+
+

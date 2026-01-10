@@ -1,0 +1,5 @@
+[33m353ad57[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Enhance lighting prompts and modernize cleanup tool
+[33m635f0a0[m[33m ([m[1;31morigin/local-branch[m[33m)[m Fix iOS overscroll issues and button positioning - Reduce layout padding - Add viewport meta tag - Remove conflicting body background - Adjust image container max height
+[33m1aab57e[m Fix: Standardized image processing pipeline and improved mobile UI stability - Standardized all image uploads to consistent JPEG format for AI processing - Fixed desktop JPEG alignment issues by using upscaled image dimensions for canvas generation - Improved mobile animation performance and container size stability - Enhanced image comparison functionality with proper state management
+[33meefa296[m Production ready for Vercel deployment - Added Vercel configuration, removed mock services, optimized for production
+[33mad2cbdb[m Fix HEIC image sizing and container optimization

@@ -1,0 +1,170 @@
+LIGHTING TOOL FLOW - VISUAL DIAGRAM
+=====================================
+
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   User Upload   │───▶│  ImageContainer  │───▶│  ImageUploader  │
+│   (Drag/Drop)   │    │                  │    │                 │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+                                │
+                                ▼
+                       ┌──────────────────┐
+                       │  ToolStateManager│
+                       │  - isUploading   │
+                       │  - originalSrc   │
+                       │  - imageReady    │
+                       └──────────────────┘
+                                │
+                                ▼
+                       ┌──────────────────┐
+                       │   User Clicks    │
+                       │   "Edit" Button  │
+                       └──────────────────┘
+                                │
+                                ▼
+                       ┌──────────────────┐
+                       │ LightingInterface│
+                       │ - showEditFlow   │
+                       │ - lightingOptions│
+                       └──────────────────┘
+                                │
+                                ▼
+                       ┌──────────────────┐
+                       │ User Selects     │
+                       │ Lighting Style   │
+                       │ (Dramatic/Midday/│
+                       │  Cozy Evening)   │
+                       └──────────────────┘
+                                │
+                                ▼
+                       ┌──────────────────┐
+                       │  ImageProcessor  │
+                       │  processImage()  │
+                       └──────────────────┘
+                                │
+                                ▼
+                       ┌──────────────────┐
+                       │ POST /api/       │
+                       │ predictions/     │
+                       │ relight          │
+                       └──────────────────┘
+                                │
+                                ▼
+                       ┌──────────────────┐
+                       │  relight.js API  │
+                       │  - Validates img │
+                       │  - Gets prompt   │
+                       │  - Creates       │
+                       │    prediction    │
+                       └──────────────────┘
+                                │
+                                ▼
+                       ┌──────────────────┐
+                       │  aiService.js    │
+                       │  - Flux Kontext  │
+                       │    Max Model     │
+                       │  - Replicate API │
+                       └──────────────────┘
+                                │
+                                ▼
+                       ┌──────────────────┐
+                       │  POLLING LOOP    │
+                       │  (2s intervals)  │
+                       │  GET /api/       │
+                       │  predictions/[id]│
+                       └──────────────────┘
+                                │
+                                ▼
+                       ┌──────────────────┐
+                       │  Status Check    │
+                       │  - "starting"    │
+                       │  - "processing"  │
+                       │  - "succeeded"   │
+                       │  - "failed"      │
+                       └──────────────────┘
+                                │
+                                ▼
+                       ┌──────────────────┐
+                       │ Processing       │
+                       │ Complete         │
+                       │ - Mark processed │
+                       │ - Start upscale  │
+                       └──────────────────┘
+                                │
+                                ▼
+                       ┌──────────────────┐
+                       │ POST /api/       │
+                       │ predictions/     │
+                       │ upscale          │
+                       └──────────────────┘
+                                │
+                                ▼
+                       ┌──────────────────┐
+                       │  Final State     │
+                       │  - processedSrc  │
+                       │  - showEnhanced  │
+                       │  - isProcessing  │
+                       │    = false       │
+                       └──────────────────┘
+                                │
+                                ▼
+                       ┌──────────────────┐
+                       │  User Downloads  │
+                       │  Enhanced Image  │
+                       └──────────────────┘
+
+KEY FILES INVOLVED:
+===================
+
+Frontend Components:
+├── pages/lighting.js                    (Entry point)
+├── components/pages/DevelloStudio.js    (Main orchestrator)
+├── components/pages/ImageContainer.js   (Image display)
+├── components/pages/ImageUploader.js    (Upload handling)
+├── components/pages/LightingInterface.js (Lighting selection UI)
+├── components/pages/ImageProcessor.js   (Processing logic)
+└── components/contexts/ToolStateManager.js (State management)
+
+Backend APIs:
+├── pages/api/predictions/relight.js     (Relight processing)
+├── pages/api/predictions/[id].js        (Status polling)
+├── pages/api/predictions/upscale.js     (Image upscaling)
+└── pages/api/upload/mark-processed.js   (Upload tracking)
+
+Core Services:
+├── lib/aiService.js                     (AI model integration)
+├── lib/supabaseClient.js                (Database client)
+└── lib/uploadAllowanceService.js        (Upload limits)
+
+State Management:
+├── useToolState('lighting')             (Tool-specific state)
+├── useUploadData()                      (Upload statistics)
+└── CentralizedUploadCounter             (Upload limit display)
+
+POLLING LOGIC DETAILS:
+======================
+
+1. Initial Delay: 2 seconds
+2. Poll Interval: 2 seconds
+3. Max Polls: 120 (4 minutes total)
+4. Retry Logic: 5 attempts with exponential backoff
+5. Rate Limit Handling: Special 429 status handling
+6. Tab Visibility: Continues when tab becomes active
+7. Cleanup: Clears timeouts on unmount
+
+ERROR HANDLING:
+===============
+
+- Network errors: Retry with exponential backoff
+- Rate limits: Wait and retry (up to 10s delay)
+- Processing failures: Show error message
+- Timeout: Show timeout error after 4 minutes
+- Tab switching: Preserve state and continue polling
+
+UPLOAD TRACKING:
+================
+
+- User uploads counted in Supabase database
+- Processing completion marks upload as "processed"
+- Global event dispatched for UI updates
+- Upload counter shows remaining uploads
+- Payment modal triggered at limit

@@ -1,0 +1,57 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "regions": ["iad1"],
+  "functions": {
+    "pages/api/**/*.js": {
+      "maxDuration": 30,
+      "memory": 1024
+    },
+    "pages/api/upload.js": {
+      "maxDuration": 60,
+      "memory": 1024
+    },
+    "pages/api/upload-direct.js": {
+      "maxDuration": 30,
+      "memory": 1024
+    }
+  },
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://develloinc.com/$1",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": "devello.us"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "destination": "https://develloinc.com/$1",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": "www.devello.us"
+        }
+      ]
+    }
+  ]
+} 

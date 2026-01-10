@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Devello Inc Blog</title>
+    <description>Insights on digital creativity and innovation in real estate technology</description>
+    <link>https://develloinc.com</link>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 15 Jan 2025 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://develloinc.com/rss.xml" rel="self" type="application/rss+xml"/>
+    
+    <item>
+      <title>How to build in the digital</title>
+      <description>The introduction of digital intelligence has paved the way for learning and rapid implementation of ideas, transforming how we approach creative problem-solving and innovation in the modern world.</description>
+      <link>https://develloinc.com/blog/how-to-build-in-the-digital</link>
+      <pubDate>Wed, 15 Jan 2025 00:00:00 GMT</pubDate>
+      <guid>https://develloinc.com/blog/how-to-build-in-the-digital</guid>
+    </item>
+    
+    <item>
+      <title>The art of creation</title>
+      <description>Exploring the relationship between creative freedom and the mental constraints such freedom introduces, revealing how boundaries can paradoxically enhance artistic expression.</description>
+      <link>https://develloinc.com/blog/the-art-of-creation</link>
+      <pubDate>Sun, 08 Dec 2024 00:00:00 GMT</pubDate>
+      <guid>https://develloinc.com/blog/the-art-of-creation</guid>
+    </item>
+    
+    <item>
+      <title>What are tools?</title>
+      <description>How the unique ability of humans to craft and use tools has helped change the course of history, from primitive implements to digital technologies.</description>
+      <link>https://develloinc.com/blog/what-are-tools</link>
+      <pubDate>Sat, 14 Jun 2025 00:00:00 GMT</pubDate>
+      <guid>https://develloinc.com/blog/what-are-tools</guid>
+    </item>
+  </channel>
+</rss>

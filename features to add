@@ -1,0 +1,273 @@
+## Hotspot Enhancement Features for Production Integration
+
+This document outlines the implementation approach for advanced hotspot functionality including:
+- Dragging hotspots with mouse/touch
+- Resizing hotspots (including drag-to-expand from edges)
+- Container boundary enforcement
+- Collision prevention between hotspots
+- Visual feedback and cursor states
+
+### Implementation Strategy
+
+These features should be integrated into the existing `ImageContainer.js` component, extending the current hotspot system with enhanced interaction capabilities.
+
+### 1) Enhanced Data Model
+
+**Current State**: Hotspots use basic x/y coordinates with fixed width/height
+**Enhancement**: Extend to support percentage-based positioning and dynamic sizing
+
+**Implementation Notes**:
+- Convert existing hotspot coordinates to percentage-based system
+- Add width/height properties for resizable hotspots
+- Maintain backward compatibility with existing hotspot data
+- Consider adding visual handles for resize operations
+
+### 2) Geometry helpers
+
+```ts
+export function clamp01(v: number) {
+  return Math.max(0, Math.min(100, v));
+}
+
+export function clampRectToBounds(h: Hotspot): Hotspot {
+  const left = clamp01(h.left);
+  const top = clamp01(h.top);
+  const width = Math.max(1, Math.min(100 - left, h.width));
+  const height = Math.max(1, Math.min(100 - top, h.height));
+  return { ...h, left, top, width, height };
+}
+
+export function rectsOverlap(a: Hotspot, b: Hotspot): boolean {
+  return !(
+    a.left + a.width <= b.left ||
+    b.left + b.width <= a.left ||
+    a.top + a.height <= b.top ||
+    b.top + b.height <= a.top
+  );
+}
+
+export function resolveCollision(active: Hotspot, others: Hotspot[]): Hotspot {
+  // Push the active rect minimally so it no longer overlaps any other.
+  let moved = { ...active };
+  for (let i = 0; i < 8; i++) {
+    let collided = false;
+    for (const o of others) {
+      if (!rectsOverlap(moved, o)) continue;
+      collided = true;
+      // Compute minimal axis push
+      const pushRight = o.left + o.width - moved.left; // push active to the right of o
+      const pushLeft = moved.left + moved.width - o.left; // push active to the left of o
+      const pushDown = o.top + o.height - moved.top; // push active below o
+      const pushUp = moved.top + moved.height - o.top; // push active above o
+
+      // Choose smallest displacement
+      const candidates = [
+        { dx: pushRight, dy: 0 },
+        { dx: -pushLeft, dy: 0 },
+        { dx: 0, dy: pushDown },
+        { dx: 0, dy: -pushUp },
+      ].sort((a, b) => Math.abs(a.dx || a.dy) - Math.abs(b.dx || b.dy));
+
+      const best = candidates[0];
+      moved = clampRectToBounds({
+        ...moved,
+        left: moved.left + (best.dx || 0),
+        top: moved.top + (best.dy || 0),
+      });
+    }
+    if (!collided) break;
+  }
+  return moved;
+}
+```
+
+### 3) Pointer interaction (drag and resize)
+
+Attach to the hotspot layer within the image container. Works with standard React state.
+
+```tsx
+type DragState =
+  | { mode: 'none' }
+  | {
+      mode: 'move' | 'resize';
+      id: number;
+      startX: number; // clientX
+      startY: number; // clientY
+      origin: Hotspot; // rect at drag start
+      handle?: 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw';
+    };
+
+const MIN_SIZE = 4; // percent
+
+function pxToPercent(dx: number, dy: number, container: HTMLElement) {
+  const rect = container.getBoundingClientRect();
+  const dpx = (dx / rect.width) * 100;
+  const dpy = (dy / rect.height) * 100;
+  return { dpx, dpy };
+}
+
+export function onPointerDown(
+  e: React.PointerEvent,
+  hotspot: Hotspot,
+  containerRef: React.RefObject<HTMLDivElement>,
+  setDrag: (s: DragState) => void,
+  hit: (e: React.PointerEvent, h: Hotspot) => DragState['handle'] | undefined
+) {
+  const handle = hit(e, hotspot); // null means move
+  setDrag({
+    mode: handle ? 'resize' : 'move',
+    id: hotspot.id,
+    startX: e.clientX,
+    startY: e.clientY,
+    origin: hotspot,
+    handle,
+  });
+  (e.currentTarget as Element).setPointerCapture(e.pointerId);
+}
+
+export function onPointerMove(
+  e: React.PointerEvent,
+  drag: DragState,
+  hotspots: Hotspot[],
+  setHotspots: (u: Hotspot[]) => void,
+  containerRef: React.RefObject<HTMLDivElement>
+) {
+  if (drag.mode === 'none') return;
+  const container = containerRef.current!;
+  const { dpx, dpy } = pxToPercent(e.clientX - drag.startX, e.clientY - drag.startY, container);
+  const others = hotspots.filter(h => h.id !== drag.id);
+
+  if (drag.mode === 'move') {
+    let moved: Hotspot = clampRectToBounds({
+      ...drag.origin,
+      left: drag.origin.left + dpx,
+      top: drag.origin.top + dpy,
+    });
+    moved = resolveCollision(moved, others);
+    setHotspots([...others, moved]);
+    return;
+  }
+
+  if (drag.mode === 'resize') {
+    let { left, top, width, height } = drag.origin;
+    const h = drag.handle;
+    if (h?.includes('e')) width = Math.max(MIN_SIZE, width + dpx);
+    if (h?.includes('s')) height = Math.max(MIN_SIZE, height + dpy);
+    if (h?.includes('w')) {
+      const newLeft = left + dpx;
+      const newWidth = width - dpx;
+      if (newWidth >= MIN_SIZE) { left = newLeft; width = newWidth; }
+    }
+    if (h?.includes('n')) {
+      const newTop = top + dpy;
+      const newHeight = height - dpy;
+      if (newHeight >= MIN_SIZE) { top = newTop; height = newHeight; }
+    }
+
+    let resized = clampRectToBounds({ ...drag.origin, left, top, width, height });
+    resized = resolveCollision(resized, others);
+    setHotspots([...others, resized]);
+  }
+}
+
+export function onPointerUp(
+  e: React.PointerEvent,
+  setDrag: (s: DragState) => void
+) {
+  setDrag({ mode: 'none' });
+}
+```
+
+### 4) Resize-handle hit test (cursor/UX)
+
+```ts
+export function hitTestHandle(
+  e: React.PointerEvent,
+  hotspot: Hotspot,
+  container: HTMLElement
+): DragState['handle'] | undefined {
+  const rect = container.getBoundingClientRect();
+  const x = ((e.clientX - rect.left) / rect.width) * 100;
+  const y = ((e.clientY - rect.top) / rect.height) * 100;
+  const pad = 2.0; // percent hit slop
+
+  const nearLeft = Math.abs(x - hotspot.left) <= pad;
+  const nearRight = Math.abs(x - (hotspot.left + hotspot.width)) <= pad;
+  const nearTop = Math.abs(y - hotspot.top) <= pad;
+  const nearBottom = Math.abs(y - (hotspot.top + hotspot.height)) <= pad;
+
+  if (nearTop && nearLeft) return 'nw';
+  if (nearTop && nearRight) return 'ne';
+  if (nearBottom && nearLeft) return 'sw';
+  if (nearBottom && nearRight) return 'se';
+  if (nearLeft) return 'w';
+  if (nearRight) return 'e';
+  if (nearTop) return 'n';
+  if (nearBottom) return 's';
+  return undefined; // move
+}
+```
+
+### 5) Minimal CSS for handles (optional)
+
+```css
+.hotspot {
+  position: absolute;
+  outline: 2px solid #3B82F6;
+}
+.hotspot::after {
+  content: '';
+  position: absolute;
+  inset: -4px; /* bigger hit area */
+}
+.hotspot .handle { position: absolute; width: 8px; height: 8px; background: #3B82F6; }
+.handle.nw { left: -4px; top: -4px; cursor: nwse-resize; }
+.handle.ne { right: -4px; top: -4px; cursor: nesw-resize; }
+.handle.sw { left: -4px; bottom: -4px; cursor: nesw-resize; }
+.handle.se { right: -4px; bottom: -4px; cursor: nwse-resize; }
+.handle.n { left: calc(50% - 4px); top: -4px; cursor: ns-resize; }
+.handle.s { left: calc(50% - 4px); bottom: -4px; cursor: ns-resize; }
+.handle.w { top: calc(50% - 4px); left: -4px; cursor: ew-resize; }
+.handle.e { top: calc(50% - 4px); right: -4px; cursor: ew-resize; }
+```
+
+### 6) Integration sketch with `ImageContainer`
+
+```tsx
+// Within ImageContainer-like component
+const containerRef = useRef<HTMLDivElement>(null);
+const [drag, setDrag] = useState<DragState>({ mode: 'none' });
+const [hotspots, setHotspots] = useState<Hotspot[]>([]);
+
+// Render
+<div ref={containerRef} style={{ position: 'relative' }}
+     onPointerMove={(e) => onPointerMove(e, drag, hotspots, setHotspots, containerRef)}
+     onPointerUp={(e) => onPointerUp(e, setDrag)}>
+  {/* image as background or an <img> */}
+  {hotspots.map(h => (
+    <div key={h.id}
+         className="hotspot"
+         style={{ left: `${h.left}%`, top: `${h.top}%`, width: `${h.width}%`, height: `${h.height}%` }}
+         onPointerDown={(e) => onPointerDown(e, h, containerRef, setDrag, (evt, hh) => hitTestHandle(evt, hh, containerRef.current!))}>
+      {/* resize handles */}
+      <div className="handle nw"/>
+      <div className="handle ne"/>
+      <div className="handle sw"/>
+      <div className="handle se"/>
+      <div className="handle n"/>
+      <div className="handle s"/>
+      <div className="handle w"/>
+      <div className="handle e"/>
+    </div>
+  ))}
+</div>
+```
+
+### 7) Notes
+
+- All coordinates are percentages to remain resolution-independent.
+- Boundary clamping occurs before collision resolution.
+- Collision resolution is minimal-axis push and iterated a few times; it’s fast and predictable.
+- Adjust `MIN_SIZE`, handle hit slop `pad`, and CSS sizes to taste.
+
+

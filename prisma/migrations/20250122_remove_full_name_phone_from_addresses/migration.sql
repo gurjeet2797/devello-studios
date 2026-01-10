@@ -1,0 +1,2 @@
+-- This migration was rolled back - the table doesn't exist yet
+-- No operation needed

@@ -1,0 +1,89 @@
+{
+  "name": "Devello",
+  "short_name": "Devello",
+  "description": "Professional software development company specializing in AI-powered solutions, web applications, and custom software development.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["productivity", "business", "technology"],
+  "icons": [
+    {
+      "src": "https://static.wixstatic.com/media/c6bfe7_00325be2587049a8bd3a30589a34605a~mv2.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://static.wixstatic.com/media/c6bfe7_00325be2587049a8bd3a30589a34605a~mv2.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://static.wixstatic.com/media/c6bfe7_00325be2587049a8bd3a30589a34605a~mv2.jpg",
+      "sizes": "180x180",
+      "type": "image/jpeg",
+      "purpose": "apple-touch-icon"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://static.wixstatic.com/media/c6bfe7_00325be2587049a8bd3a30589a34605a~mv2.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Software Development",
+      "short_name": "Development",
+      "description": "Custom software development and AI solutions",
+      "url": "/",
+      "icons": [
+        {
+          "src": "https://static.wixstatic.com/media/c6bfe7_00325be2587049a8bd3a30589a34605a~mv2.jpg",
+          "sizes": "192x192",
+          "type": "image/jpeg"
+        }
+      ]
+    },
+    {
+      "name": "AI Solutions",
+      "short_name": "AI Solutions",
+      "description": "AI-powered software development and integration",
+      "url": "/",
+      "icons": [
+        {
+          "src": "https://static.wixstatic.com/media/c6bfe7_00325be2587049a8bd3a30589a34605a~mv2.jpg",
+          "sizes": "192x192",
+          "type": "image/jpeg"
+        }
+      ]
+    }
+  ]
+}

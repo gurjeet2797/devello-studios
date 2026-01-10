@@ -1,0 +1,39 @@
+# Exclude build directories from OneDrive sync
+# This prevents EBUSY errors when Next.js tries to access files
+
+.next/
+out/
+node_modules/
+build/
+dist/
+
+# Cache directories
+.cache/
+*.cache
+
+# Log files
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+

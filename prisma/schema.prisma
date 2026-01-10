@@ -1,0 +1,881 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id                  String              @id @default(cuid())
+  email               String              @unique
+  created_at          DateTime            @default(now())
+  updated_at          DateTime            @updatedAt
+  supabase_user_id    String              @unique
+  conversations       Conversation[]
+  one_time_purchases  OneTimePurchase[]
+  partnerMessages     PartnerMessage[]
+  partner             Partner?
+  stripe_transactions StripeTransaction[]
+  subscription        Subscription?
+  uploads             Upload[]
+  profile             UserProfile?
+  orders              Order[]
+  productOrders       ProductOrder[]
+  invoices            Invoice[]
+  payments            Payment[]
+  customProductRequests CustomProductRequest[]
+  addresses           UserAddress[]
+
+  @@map("users")
+}
+
+model UserProfile {
+  id                          String    @id @default(cuid())
+  user_id                     String    @unique
+  first_name                  String?
+  last_name                   String?
+  avatar_url                  String?
+  company                     String?
+  website                     String?
+  upload_count                Int       @default(0)
+  upload_limit                Int       @default(10)
+  created_at                  DateTime  @default(now())
+  updated_at                  DateTime  @updatedAt
+  last_monthly_reset          DateTime? @db.Timestamptz(6)
+  basic_upload_count          Int?      @default(0)
+  pro_upload_count            Int?      @default(0)
+  email_notifications_enabled Boolean   @default(true)
+  user                        User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("user_profiles")
+}
+
+model UserAddress {
+  id                String    @id @default(cuid())
+  user_id           String
+  title             String    // e.g., "Home", "Job Address", "Office"
+  address_line1     String
+  address_line2     String?
+  city              String
+  state             String
+  zip_code          String
+  country           String    @default("US")
+  is_primary        Boolean   @default(false)
+  created_at        DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at        DateTime  @updatedAt @db.Timestamptz(6)
+  user              User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@index([user_id, is_primary])
+  @@map("user_addresses")
+}
+
+model Subscription {
+  id                     String    @id @default(cuid())
+  user_id                String    @unique
+  stripe_customer_id     String?   @unique
+  stripe_subscription_id String?   @unique
+  stripe_price_id        String?
+  status                 String    @default("inactive")
+  plan_type              String    @default("free")
+  current_period_start   DateTime?
+  current_period_end     DateTime?
+  upload_limit           Int       @default(10)
+  created_at             DateTime  @default(now())
+  updated_at             DateTime  @updatedAt
+  user                   User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("subscriptions")
+}
+
+model Upload {
+  id            String   @id @default(cuid())
+  user_id       String
+  file_name     String
+  file_size     Int
+  file_type     String
+  upload_type   String
+  status        String   @default("uploaded")
+  prediction_id String?
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+  user          User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("uploads")
+}
+
+model Prediction {
+  id           Int       @id @default(autoincrement())
+  uuid         String    @unique
+  input        Json?
+  output       Json?
+  status       String?
+  created_at   DateTime?
+  started_at   DateTime?
+  completed_at DateTime?
+  version      String?
+  metrics      Json?
+  error        String?
+  logs         String?
+}
+
+model OneTimePurchase {
+  id                       String   @id @default(cuid())
+  user_id                  String
+  stripe_payment_intent_id String   @unique
+  stripe_session_id        String?
+  amount                   Int      @default(0)
+  currency                 String   @default("usd")
+  status                   String   @default("pending")
+  purchase_type            String   @default("single_upload")
+  uploads_granted          Int      @default(1)
+  uploads_used             Int      @default(0)
+  created_at               DateTime @default(now())
+  updated_at               DateTime @updatedAt
+  user                     User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("one_time_purchases")
+}
+
+model GuestPurchase {
+  id                       String    @id @default(dbgenerated("(gen_random_uuid())::text"))
+  session_id               String
+  stripe_payment_intent_id String    @unique
+  stripe_session_id        String?
+  amount                   Int
+  currency                 String?   @default("usd")
+  status                   String?   @default("completed")
+  purchase_type            String?   @default("single_upload")
+  uploads_granted          Int?      @default(1)
+  uploads_used             Int?      @default(0)
+  user_email               String?
+  created_at               DateTime? @default(now()) @db.Timestamptz(6)
+  updated_at               DateTime? @default(now()) @updatedAt @db.Timestamptz(6)
+
+  @@index([created_at], map: "idx_guest_purchases_created_at")
+  @@index([session_id], map: "idx_guest_purchases_session_id")
+  @@index([status], map: "idx_guest_purchases_status")
+  @@map("guest_purchases")
+}
+
+/// This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.
+model NewsletterSubscriber {
+  id              Int       @id @default(autoincrement())
+  email           String    @unique @db.VarChar(255)
+  subscribed_at   DateTime  @default(now())
+  status          String    @default("active") @db.VarChar(20)
+  unsubscribed_at DateTime?
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @default(now()) @updatedAt
+
+  @@index([status])
+  @@index([subscribed_at])
+  @@map("newsletter_subscribers")
+}
+
+model SupportMessage {
+  id         Int       @id @default(autoincrement())
+  name       String    @db.VarChar(255)
+  email      String    @db.VarChar(255)
+  subject    String    @db.VarChar(500)
+  message    String
+  status     String?   @default("new") @db.VarChar(20)
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  updated_at DateTime? @default(now()) @updatedAt @db.Timestamp(6)
+
+  @@map("support_messages")
+}
+
+model GuestSession {
+  id                 String    @id
+  device_fingerprint String?
+  ip_address         String?   @db.Inet
+  user_agent         String?
+  upload_count       Int?      @default(0)
+  upload_limit       Int?      @default(3)
+  created_at         DateTime? @default(now()) @db.Timestamptz(6)
+  expires_at         DateTime? @default(dbgenerated("(now() + '48:00:00'::interval)")) @db.Timestamptz(6)
+  last_activity      DateTime? @default(now()) @db.Timestamptz(6)
+  country_code       String?
+  is_mobile          Boolean?  @default(false)
+  browser_name       String?
+  os_name            String?
+
+  @@index([created_at], map: "idx_guest_sessions_created_at")
+  @@index([device_fingerprint], map: "idx_guest_sessions_device_fingerprint")
+  @@index([expires_at], map: "idx_guest_sessions_expires_at")
+  @@index([ip_address], map: "idx_guest_sessions_ip_address")
+  @@index([last_activity], map: "idx_guest_sessions_last_activity")
+  @@map("guest_sessions")
+}
+
+model Partner {
+  id                          String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id                     String           @unique
+  service_type                String           @db.VarChar(50)
+  status                      String           @default("pending") @db.VarChar(20)
+  company_name                String           @db.VarChar(255)
+  experience_years            Int?
+  description                 String?
+  portfolio_url               String?          @db.VarChar(500)
+  phone                       String?          @db.VarChar(50)
+  application_data            Json?
+  approved_at                 DateTime?        @db.Timestamptz(6)
+  approved_by                 String?          @db.VarChar(255)
+  created_at                  DateTime?        @default(dbgenerated("(now() AT TIME ZONE 'utc'::text)")) @db.Timestamptz(6)
+  updated_at                  DateTime?        @default(dbgenerated("(now() AT TIME ZONE 'utc'::text)")) @updatedAt @db.Timestamptz(6)
+  email_notifications_enabled Boolean          @default(true)
+  conversations               Conversation[]
+  messages                    PartnerMessage[]
+  user                        User             @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  orders                      Order[]
+  invoices                    Invoice[]
+  paymentTerms                PartnerPaymentTerms?
+  bankAccount                 PartnerBankAccount?
+
+  @@index([created_at], map: "idx_partners_created_at")
+  @@index([service_type], map: "idx_partners_service_type")
+  @@index([status], map: "idx_partners_status")
+  @@index([user_id], map: "idx_partners_user_id")
+  @@map("partners")
+}
+
+model Conversation {
+  id              String           @id @default(cuid())
+  partner_id      String           @db.Uuid
+  user_id         String?
+  subject         String
+  status          String           @default("active")
+  last_message_at DateTime         @default(now())
+  created_at      DateTime         @default(now())
+  updated_at      DateTime         @default(now()) @updatedAt
+  partner         Partner          @relation(fields: [partner_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user            User?            @relation(fields: [user_id], references: [id], onUpdate: NoAction)
+  messages        PartnerMessage[]
+  orders          Order[]
+
+  @@index([partner_id])
+  @@index([user_id])
+  @@index([status])
+  @@map("conversations")
+}
+
+model PartnerMessage {
+  id              String           @id @default(cuid())
+  partner_id      String           @db.Uuid
+  sender_name     String
+  sender_email    String
+  sender_phone    String?
+  subject         String
+  message         String
+  attachments     Json?
+  status          String           @default("new")
+  read_at         DateTime?
+  replied_at      DateTime?
+  created_at      DateTime         @default(now())
+  updated_at      DateTime         @default(now()) @updatedAt
+  conversation_id String?
+  user_id         String?
+  sender_id       String?          @default("client")
+  reply_to_id     String?
+  conversation    Conversation?    @relation(fields: [conversation_id], references: [id], onUpdate: NoAction)
+  partner         Partner          @relation(fields: [partner_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  reply_to        PartnerMessage?  @relation("MessageReplies", fields: [reply_to_id], references: [id], onUpdate: NoAction)
+  replies         PartnerMessage[] @relation("MessageReplies")
+  user            User?            @relation(fields: [user_id], references: [id], onUpdate: NoAction)
+
+  @@index([partner_id])
+  @@index([conversation_id])
+  @@index([user_id])
+  @@index([sender_id])
+  @@index([status])
+  @@map("partner_messages")
+}
+
+model StripeTransaction {
+  id                       String    @id @default(cuid())
+  stripe_transaction_id    String    @unique
+  stripe_payment_intent_id String?
+  stripe_session_id        String?
+  stripe_charge_id         String?
+  stripe_customer_id       String?
+  stripe_subscription_id   String?
+  amount                   Int
+  currency                 String    @default("usd")
+  status                   String    @default("pending")
+  transaction_type         String
+  description              String?
+  user_id                  String?
+  user_email               String?
+  user_name                String?
+  stripe_metadata          Json?
+  stripe_created           DateTime? @db.Timestamptz(6)
+  stripe_updated           DateTime? @db.Timestamptz(6)
+  processed                Boolean   @default(false)
+  sync_status              String    @default("pending")
+  created_at               DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at               DateTime  @default(now()) @updatedAt @db.Timestamptz(6)
+  user                     User?     @relation(fields: [user_id], references: [id])
+
+  @@index([created_at])
+  @@index([status])
+  @@index([stripe_customer_id])
+  @@index([sync_status])
+  @@index([transaction_type])
+  @@index([user_id])
+  @@map("stripe_transactions")
+}
+
+model ApiCost {
+  id           String   @id @default(cuid())
+  service      String
+  cost         Decimal  @db.Decimal(10, 6)
+  request_data Json?
+  timestamp    DateTime @db.Timestamptz(6)
+  created_at   DateTime @default(now()) @db.Timestamptz(6)
+
+  @@index([created_at])
+  @@index([service])
+  @@index([timestamp])
+  @@map("api_costs")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model leads {
+  id               Int       @id @default(autoincrement())
+  name             String    @db.VarChar(255)
+  email            String    @db.VarChar(255)
+  phone            String?   @db.VarChar(255)
+  company          String?   @db.VarChar(255)
+  project_type     String    @db.VarChar(50)
+  project_stage    String?   @db.VarChar(50)
+  primary_goal     String?   @db.VarChar(50)
+  role             String?   @db.VarChar(50)
+  description      String?
+  target_platforms String[]
+  timeline         String?   @db.VarChar(50)
+  budget           String?   @db.VarChar(50)
+  created_at       DateTime? @default(now()) @db.Timestamp(6)
+  status           String?   @default("new") @db.VarChar(20)
+}
+
+// Payment Gateway Models
+
+model Order {
+  id                   String      @id @default(cuid())
+  conversation_id      String
+  partner_id           String      @db.Uuid
+  user_id              String?
+  title                String
+  description          String?
+  status               OrderStatus @default(pending)
+  order_type           String      @default("partner_service") @db.VarChar(20)
+  total_amount         Int?
+  currency             String      @default("usd") @db.VarChar(3)
+  estimated_completion DateTime?
+  completed_at         DateTime?
+  test_order           Boolean     @default(false)
+  created_at           DateTime    @default(now()) @db.Timestamptz(6)
+  updated_at           DateTime    @default(now()) @updatedAt @db.Timestamptz(6)
+  conversation         Conversation @relation(fields: [conversation_id], references: [id], onDelete: Cascade)
+  partner              Partner     @relation(fields: [partner_id], references: [id], onDelete: Cascade)
+  user                 User?       @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  invoices             Invoice[]
+  payments             Payment[]
+  statusEvents         OrderStatusEvent[]
+  paymentWebhookEvents PaymentWebhookEvent[]
+
+  @@index([conversation_id])
+  @@index([partner_id])
+  @@index([user_id])
+  @@index([status])
+  @@index([order_type])
+  @@index([test_order])
+  @@map("orders")
+}
+
+model Product {
+  id            String         @id @default(cuid())
+  name          String
+  description   String?
+  slug          String         @unique
+  price         Int
+  currency      String         @default("usd") @db.VarChar(3)
+  stripe_price_id String?
+  product_type  String         @db.VarChar(20) // one_time, subscription, service
+  status        String         @default("active") @db.VarChar(20) // active, inactive, archived
+  is_test       Boolean        @default(false)
+  visible_in_catalog Boolean   @default(true)
+  image_url     String?
+  metadata      Json?
+  shippingProfile ShippingProfileCode?
+  created_at    DateTime       @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime       @default(now()) @updatedAt @db.Timestamptz(6)
+  productOrders ProductOrder[]
+  shippingRequests ShippingRequest[]
+
+  @@index([slug])
+  @@index([status])
+  @@index([product_type])
+  @@map("products")
+}
+
+model HouseBuildProduct {
+  id            String         @id @default(cuid())
+  name          String
+  description   String?
+  slug          String         @unique
+  price         Int
+  currency      String         @default("usd") @db.VarChar(3)
+  stripe_price_id String?
+  product_type  String         @db.VarChar(20) // one_time, subscription, service
+  status        String         @default("active") @db.VarChar(20) // active, inactive, archived
+  is_test       Boolean        @default(false)
+  visible_in_catalog Boolean   @default(true)
+  image_url     String?
+  metadata      Json?
+  created_at    DateTime       @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime       @default(now()) @updatedAt @db.Timestamptz(6)
+
+  @@index([slug])
+  @@index([status])
+  @@index([product_type])
+  @@map("house_build_products")
+}
+
+model CustomProductRequest {
+  id                String         @id @default(cuid())
+  user_id           String?
+  project_type      String         @db.VarChar(100)
+  project_description String?
+  product_description String?
+  project_stage     String?        @db.VarChar(50)
+  material          String?        @db.VarChar(100)
+  size              String?        @db.VarChar(100)
+  custom_size       String?
+  height            String?
+  width             String?
+  delivery_method   String?        @db.VarChar(20)
+  shipping_address  Json?
+  uploaded_image    String?        // Base64 or URL
+  annotated_image   String?        // Base64 or URL
+  preview_image     String?        // AI-generated preview URL
+  space_rendered_image String?     // AI-rendered product in space URL
+  name              String
+  email             String
+  phone             String?
+  additional_info   String?
+  status            String         @default("received") @db.VarChar(20) // received, quoted, approved, rejected, cancelled
+  quoted_price      Int?
+  quoted_by         String?        // Admin user ID
+  quoted_at         DateTime?
+  created_at        DateTime       @default(now()) @db.Timestamptz(6)
+  updated_at        DateTime       @default(now()) @updatedAt @db.Timestamptz(6)
+  user              User?          @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  quotes            Quote[]
+  productOrder      ProductOrder?
+
+  @@index([user_id])
+  @@index([status])
+  @@index([created_at])
+  @@map("custom_product_requests")
+}
+
+model Quote {
+  id                      String              @id @default(cuid())
+  custom_product_request_id String
+  amount                  Int
+  currency                String              @default("usd") @db.VarChar(3)
+  status                  String              @default("pending") @db.VarChar(20) // pending, approved, rejected, expired
+  admin_notes             String?
+  created_at              DateTime            @default(now()) @db.Timestamptz(6)
+  expires_at              DateTime?
+  customProductRequest     CustomProductRequest  @relation(fields: [custom_product_request_id], references: [id], onDelete: Cascade)
+
+  @@index([custom_product_request_id])
+  @@index([status])
+  @@index([created_at])
+  @@map("quotes")
+}
+
+model ProductOrder {
+  id                       String              @id @default(cuid())
+  user_id                  String
+  product_id                String?
+  custom_product_request_id String?             @unique
+  order_number              String              @unique
+  order_type                String              @default("stock_product") @db.VarChar(20)
+  stripe_payment_intent_id String?
+  stripe_session_id        String?
+  amount                   Int
+  currency                 String              @default("usd") @db.VarChar(3)
+  status                   OrderStatus         @default(pending)
+  payment_status           String              @default("pending") @db.VarChar(20)
+  preview_image_url        String?
+  purchased_at             DateTime?
+  fulfilled_at             DateTime?
+  guest_email               String?
+  shipping_address         Json?
+  tracking_number          String?
+  carrier                  String?
+  order_items              Json?
+  height                   String?                @db.VarChar(50)
+  width                    String?                @db.VarChar(50)
+  admin_notes               String?
+  customer_notes            String?
+  estimated_ship_date      DateTime?
+  shipped_at               DateTime?
+  delivered_at             DateTime?
+  test_order               Boolean             @default(false)
+  created_at               DateTime            @default(now()) @db.Timestamptz(6)
+  updated_at               DateTime            @default(now()) @updatedAt @db.Timestamptz(6)
+  user                     User                @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  product                  Product?             @relation(fields: [product_id], references: [id], onDelete: SetNull)
+  customProductRequest       CustomProductRequest? @relation(fields: [custom_product_request_id], references: [id], onDelete: SetNull)
+  payments                 Payment[]
+  disputes                 PaymentDispute[]
+  refundRequests           RefundRequest[]
+  orderUpdates             OrderUpdate[]
+  statusEvents             OrderStatusEvent[]
+  paymentWebhookEvents     PaymentWebhookEvent[]
+
+  @@index([user_id])
+  @@index([product_id])
+  @@index([custom_product_request_id])
+  @@index([stripe_payment_intent_id])
+  @@index([order_number])
+  @@index([status])
+  @@index([payment_status])
+  @@index([order_type])
+  @@index([guest_email])
+  @@index([test_order])
+  @@map("product_orders")
+}
+
+model PartnerPaymentTerms {
+  id                  String   @id @default(cuid())
+  partner_id          String   @unique @db.Uuid
+  default_payment_type String  @default("full_upfront") @db.VarChar(20) // full_upfront, deposit_delivery, net_15, net_30, net_60
+  deposit_percentage  Int?     // For deposit_delivery (e.g., 50 for 50%)
+  net_days            Int?     // For net terms (e.g., 15, 30, 60)
+  allow_custom_terms Boolean  @default(false)
+  created_at          DateTime @default(now()) @db.Timestamptz(6)
+  updated_at          DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+  partner             Partner @relation(fields: [partner_id], references: [id], onDelete: Cascade)
+
+  @@map("partner_payment_terms")
+}
+
+model PartnerBankAccount {
+  id                    String   @id @default(cuid())
+  partner_id            String   @unique @db.Uuid
+  stripe_account_id     String?  @unique
+  account_holder_name   String
+  account_holder_type   String   @db.VarChar(20) // individual, business
+  routing_number        String   @db.VarChar(20)
+  account_number        String   @db.VarChar(50) // Encrypted/hashed
+  bank_name             String?
+  account_type          String?  @db.VarChar(20) // checking, savings
+  verification_status   String   @default("pending") @db.VarChar(20) // pending, verified, failed
+  stripe_account_status String?  @db.VarChar(20) // pending, active, restricted
+  created_at            DateTime @default(now()) @db.Timestamptz(6)
+  updated_at            DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+  partner               Partner  @relation(fields: [partner_id], references: [id], onDelete: Cascade)
+
+  @@index([stripe_account_id])
+  @@map("partner_bank_accounts")
+}
+
+model Invoice {
+  id                String    @id @default(cuid())
+  order_id          String?
+  partner_id        String    @db.Uuid
+  user_id           String?
+  invoice_number    String    @unique
+  stripe_invoice_id String?
+  amount            Int
+  currency          String    @default("usd") @db.VarChar(3)
+  tax_amount        Int?      @default(0)
+  status            String    @default("draft") @db.VarChar(20) // draft, sent, paid, overdue, cancelled
+  due_date          DateTime?
+  paid_at           DateTime?
+  payment_terms      Json?     // Custom payment terms JSON
+  items             Json?     // Line items array
+  created_at        DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at        DateTime  @default(now()) @updatedAt @db.Timestamptz(6)
+  order             Order?    @relation(fields: [order_id], references: [id], onDelete: SetNull)
+  partner           Partner   @relation(fields: [partner_id], references: [id], onDelete: Cascade)
+  user              User?     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  payments          Payment[]
+  disputes          PaymentDispute[]
+  refundRequests    RefundRequest[]
+
+  @@index([order_id])
+  @@index([partner_id])
+  @@index([user_id])
+  @@index([invoice_number])
+  @@index([status])
+  @@map("invoices")
+}
+
+model Payment {
+  id                       String           @id @default(cuid())
+  invoice_id               String?
+  order_id                 String?
+  product_order_id         String?
+  user_id                  String
+  stripe_payment_intent_id String?
+  stripe_charge_id         String?
+  amount                   Int
+  currency                 String           @default("usd") @db.VarChar(3)
+  status                   String           @default("pending") @db.VarChar(20) // pending, succeeded, failed, refunded
+  payment_method           String?          @db.VarChar(20) // card, bank_transfer, etc.
+  payment_type             String?          @db.VarChar(20) // full, deposit, partial, final
+  scheduled_date            DateTime?
+  paid_at                  DateTime?
+  failed_at                DateTime?
+  created_at               DateTime         @default(now()) @db.Timestamptz(6)
+  updated_at                DateTime         @default(now()) @updatedAt @db.Timestamptz(6)
+  invoice                  Invoice?         @relation(fields: [invoice_id], references: [id], onDelete: SetNull)
+  order                    Order?           @relation(fields: [order_id], references: [id], onDelete: SetNull)
+  productOrder             ProductOrder?    @relation(fields: [product_order_id], references: [id], onDelete: SetNull)
+  user                     User             @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  disputes                 PaymentDispute[]
+  refundRequests           RefundRequest[]
+  webhookEvents            PaymentWebhookEvent[]
+
+  @@index([invoice_id])
+  @@index([order_id])
+  @@index([product_order_id])
+  @@index([user_id])
+  @@index([stripe_payment_intent_id])
+  @@index([status])
+  @@index([scheduled_date])
+  @@map("payments")
+}
+
+model OrderStatusEvent {
+  id                 String       @id @default(cuid())
+  order_id           String?
+  product_order_id   String?
+  from_status        OrderStatus?
+  to_status          OrderStatus
+  reason             String?
+  actor_type         StatusActorType @default(system)
+  actor_id           String?
+  created_at         DateTime     @default(now()) @db.Timestamptz(6)
+  order              Order?       @relation(fields: [order_id], references: [id], onDelete: SetNull)
+  productOrder       ProductOrder? @relation(fields: [product_order_id], references: [id], onDelete: SetNull)
+
+  @@index([order_id, created_at])
+  @@index([product_order_id, created_at])
+  @@map("order_status_events")
+}
+
+model PaymentWebhookEvent {
+  id                 String    @id @default(cuid())
+  provider           String
+  event_id           String
+  type               String
+  payload            Json?
+  status             String    @default("pending") @db.VarChar(20) // pending, processing, processed, failed
+  error_message      String?
+  processed_at       DateTime?
+  order_id           String?
+  product_order_id   String?
+  payment_id         String?
+  created_at         DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime  @default(now()) @updatedAt @db.Timestamptz(6)
+  payment            Payment?  @relation(fields: [payment_id], references: [id], onDelete: SetNull)
+  order              Order?    @relation(fields: [order_id], references: [id], onDelete: SetNull)
+  productOrder       ProductOrder? @relation(fields: [product_order_id], references: [id], onDelete: SetNull)
+
+  @@unique([provider, event_id], map: "provider_event_id")
+  @@index([status])
+  @@index([payment_id])
+  @@map("payment_webhook_events")
+}
+
+enum OrderStatus {
+  pending
+  awaiting_payment
+  paid
+  processing
+  fulfilled
+  shipped
+  delivered
+  cancelled
+  failed_payment
+  completed
+}
+
+enum StatusActorType {
+  system
+  admin
+  client
+}
+
+model PaymentDispute {
+  id                String           @id @default(cuid())
+  payment_id        String?
+  invoice_id        String?
+  product_order_id  String?
+  initiated_by      String           // user_id or partner_id
+  reason            String
+  description       String?
+  status            String           @default("pending") @db.VarChar(20) // pending, resolved, closed
+  requested_amount  Int?
+  resolved_amount   Int?
+  stripe_dispute_id String?
+  created_at        DateTime         @default(now()) @db.Timestamptz(6)
+  resolved_at       DateTime?
+  payment           Payment?         @relation(fields: [payment_id], references: [id], onDelete: SetNull)
+  invoice           Invoice?         @relation(fields: [invoice_id], references: [id], onDelete: SetNull)
+  productOrder      ProductOrder?    @relation(fields: [product_order_id], references: [id], onDelete: SetNull)
+
+  @@index([payment_id])
+  @@index([invoice_id])
+  @@index([product_order_id])
+  @@index([status])
+  @@map("payment_disputes")
+}
+
+model RefundRequest {
+  id                String           @id @default(cuid())
+  payment_id        String?
+  invoice_id        String?
+  product_order_id  String?
+  initiated_by      String           // user_id or partner_id
+  reason            String
+  description       String?
+  status            String           @default("pending") @db.VarChar(20) // pending, approved, rejected, processed
+  requested_amount  Int
+  resolved_amount   Int?
+  stripe_refund_id  String?
+  created_at        DateTime         @default(now()) @db.Timestamptz(6)
+  resolved_at       DateTime?
+  payment           Payment?         @relation(fields: [payment_id], references: [id], onDelete: SetNull)
+  invoice           Invoice?         @relation(fields: [invoice_id], references: [id], onDelete: SetNull)
+  productOrder      ProductOrder?    @relation(fields: [product_order_id], references: [id], onDelete: SetNull)
+
+  @@index([payment_id])
+  @@index([invoice_id])
+  @@index([product_order_id])
+  @@index([status])
+  @@map("refund_requests")
+}
+
+model OrderUpdate {
+  id                String       @id @default(cuid())
+  product_order_id  String
+  update_type       String       @db.VarChar(20) // 'status', 'message', 'shipping', 'refund'
+  message           String?
+  updated_by        String       // user_id or 'admin'
+  created_at        DateTime     @default(now()) @db.Timestamptz(6)
+  productOrder      ProductOrder @relation(fields: [product_order_id], references: [id], onDelete: Cascade)
+
+  @@index([product_order_id])
+  @@index([update_type])
+  @@index([created_at])
+  @@map("order_updates")
+}
+
+enum ShippingProfileCode {
+  INTERIOR_WOOD_DOOR
+  METAL_GLASS_DOOR
+  WINDOW_STANDARD
+  GLASS_PANEL_MIRROR
+}
+
+enum DeliveryAccess {
+  RESIDENTIAL
+  COMMERCIAL_DOCK
+  COMMERCIAL_NO_DOCK
+  CONSTRUCTION_SITE
+}
+
+enum DeliveryType {
+  CURBSIDE
+  WHITE_GLOVE
+}
+
+model ShippingRequest {
+  id             String        @id @default(cuid())
+  createdAt      DateTime      @default(now()) @db.Timestamptz(6)
+  productId      String?
+  orderId        String?
+  email          String?
+  zip            String        @db.VarChar(10)
+  deliveryAccess DeliveryAccess
+  liftgate       Boolean       @default(false)
+  appointment    Boolean       @default(false)
+  deliveryType   DeliveryType  @default(CURBSIDE)
+  notes          String?
+  estimateLow    Int?
+  estimateHigh   Int?
+  cratingFee     Int?
+  whiteGloveFee  Int?
+  status         String        @default("PENDING_REVIEW") @db.VarChar(50)
+  product        Product?      @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  @@index([productId])
+  @@index([orderId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("shipping_requests")
+}
+
+// Custom Order Requests - Request Pricing & Pay Later
+model CustomOrderRequest {
+  id                String    @id @default(cuid())
+  user_id           String?
+  product_id        String?
+  product_name      String?
+  product_slug      String?
+  customer_email    String
+  customer_phone    String?
+  customer_name     String?
+  message           String?
+  dimensions        String?
+  quantity          Int       @default(1)
+  variant_name      String?
+  shipping_address  Json?
+  request_type      String    @db.VarChar(20) // pricing, pay_later
+  status            String    @default("pending") @db.VarChar(20) // pending, contacted, quoted, completed, cancelled
+  admin_notes       String?
+  quoted_price      Int?
+  created_at        DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at        DateTime  @default(now()) @updatedAt @db.Timestamptz(6)
+
+  @@index([user_id])
+  @@index([product_id])
+  @@index([request_type])
+  @@index([status])
+  @@index([created_at])
+  @@map("custom_order_requests")
+}
+
+// Product Research Engine - AI-powered catalog import
+model ProductResearchJob {
+  id            String    @id @default(cuid())
+  status        String    @default("queued") @db.VarChar(20) // queued, processing, completed, failed
+  progress      Int       @default(0) // 0-100
+  message       String?   // Current status message
+  inputs        Json      // { pdfUrl, vendorUrl, instructions, options }
+  results       Json?     // Array of extracted products
+  errors        Json?     // Array of error messages
+  total_cost    Decimal?  @db.Decimal(10, 6) // Total API cost in USD
+  cost_breakdown Json?    // { gemini: 0.05, vision: 0.02, storage: 0.01 }
+  admin_email   String
+  created_at    DateTime  @default(now()) @db.Timestamptz(6)
+  started_at    DateTime? @db.Timestamptz(6)
+  completed_at  DateTime? @db.Timestamptz(6)
+
+  @@index([status])
+  @@index([admin_email])
+  @@index([created_at])
+  @@map("product_research_jobs")
+}

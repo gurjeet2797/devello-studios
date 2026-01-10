@@ -1,0 +1,176 @@
+[
+  {
+    "productId": "8ddecf13-c540-4b7d-aa59-deefdf50aeeb",
+    "productName": "Casement Window",
+    "slug": "casement-window",
+    "category": "windows",
+    "material": "vinyl",
+    "price": 45000,
+    "primaryPrompt": "Professional product catalogue photography of casement window, made of vinyl. Modern casement window with clean lines, energy-efficient design, vinyl frame. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, energy-efficient, modern design",
+    "alternativePrompts": [
+      "Professional product catalogue photography of casement window, made of vinyl. Modern casement window with clean lines, energy-efficient design, vinyl frame. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, energy-efficient, modern design, isolated on white background, product photography",
+      "Professional product catalogue photography of casement window, made of vinyl. Modern casement window with clean lines, energy-efficient design, vinyl frame. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, energy-efficient, modern design, 3/4 angle view, professional lighting",
+      "Professional product catalogue photography of casement window, made of vinyl. Modern casement window with clean lines, energy-efficient design, vinyl frame. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, energy-efficient, modern design, front view, side view visible, professional catalogue style",
+      "Professional product catalogue photography of casement window, made of vinyl. Modern casement window with clean lines, energy-efficient design, vinyl frame. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, energy-efficient, modern design, installed in modern home setting, natural lighting"
+    ],
+    "productUrl": "https://develloinc.com/storecatalogue#casement-window"
+  },
+  {
+    "productId": "60730ddf-8654-4307-94b9-01a694dc3a70",
+    "productName": "Double-Hung Window",
+    "slug": "double-hung-window",
+    "category": "windows",
+    "material": "vinyl",
+    "price": 60000,
+    "primaryPrompt": "Professional product catalogue photography of double-hung window, made of vinyl. Modern double-hung window with clean lines, energy-efficient design, vinyl frame. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, energy-efficient, classic design",
+    "alternativePrompts": [
+      "Professional product catalogue photography of double-hung window, made of vinyl. Modern double-hung window with clean lines, energy-efficient design, vinyl frame. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, energy-efficient, classic design, isolated on white background, product photography",
+      "Professional product catalogue photography of double-hung window, made of vinyl. Modern double-hung window with clean lines, energy-efficient design, vinyl frame. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, energy-efficient, classic design, 3/4 angle view, professional lighting",
+      "Professional product catalogue photography of double-hung window, made of vinyl. Modern double-hung window with clean lines, energy-efficient design, vinyl frame. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, energy-efficient, classic design, front view, side view visible, professional catalogue style",
+      "Professional product catalogue photography of double-hung window, made of vinyl. Modern double-hung window with clean lines, energy-efficient design, vinyl frame. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, energy-efficient, classic design, installed in modern home setting, natural lighting"
+    ],
+    "productUrl": "https://develloinc.com/storecatalogue#double-hung-window"
+  },
+  {
+    "productId": "66b6e58e-e900-45f3-aa2d-77964db3cdf5",
+    "productName": "Bay Window",
+    "slug": "bay-window",
+    "category": "windows",
+    "material": "vinyl",
+    "price": 80000,
+    "primaryPrompt": "Professional product catalogue photography of bay window, made of vinyl. Modern bay window with clean lines, energy-efficient design, vinyl frame. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography",
+    "alternativePrompts": [
+      "Professional product catalogue photography of bay window, made of vinyl. Modern bay window with clean lines, energy-efficient design, vinyl frame. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, isolated on white background, product photography",
+      "Professional product catalogue photography of bay window, made of vinyl. Modern bay window with clean lines, energy-efficient design, vinyl frame. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, 3/4 angle view, professional lighting",
+      "Professional product catalogue photography of bay window, made of vinyl. Modern bay window with clean lines, energy-efficient design, vinyl frame. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, front view, side view visible, professional catalogue style",
+      "Professional product catalogue photography of bay window, made of vinyl. Modern bay window with clean lines, energy-efficient design, vinyl frame. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, installed in modern home setting, natural lighting"
+    ],
+    "productUrl": "https://develloinc.com/storecatalogue#bay-window"
+  },
+  {
+    "productId": "7ecabd12-ec2c-4872-b858-50ff656e034f",
+    "productName": "Interior Door",
+    "slug": "interior-door",
+    "category": "doors",
+    "material": "wood",
+    "price": 25000,
+    "primaryPrompt": "Professional product catalogue photography of interior door, made of wood. interior door with premium finish, wood construction. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, modern design",
+    "alternativePrompts": [
+      "Professional product catalogue photography of interior door, made of wood. interior door with premium finish, wood construction. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, modern design, isolated on white background, product photography",
+      "Professional product catalogue photography of interior door, made of wood. interior door with premium finish, wood construction. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, modern design, 3/4 angle view, professional lighting",
+      "Professional product catalogue photography of interior door, made of wood. interior door with premium finish, wood construction. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, modern design, front view, side view visible, professional catalogue style",
+      "Professional product catalogue photography of interior door, made of wood. interior door with premium finish, wood construction. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, modern design, installed in modern home setting, natural lighting"
+    ],
+    "productUrl": "https://develloinc.com/storecatalogue#interior-door"
+  },
+  {
+    "productId": "841ee026-5229-4bdc-be93-d4e657592988",
+    "productName": "Exterior Door",
+    "slug": "exterior-door",
+    "category": "doors",
+    "material": "steel",
+    "price": 65000,
+    "primaryPrompt": "Professional product catalogue photography of exterior door, made of steel. exterior door with premium finish, steel construction. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, energy-efficient, security features, durable construction",
+    "alternativePrompts": [
+      "Professional product catalogue photography of exterior door, made of steel. exterior door with premium finish, steel construction. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, energy-efficient, security features, durable construction, isolated on white background, product photography",
+      "Professional product catalogue photography of exterior door, made of steel. exterior door with premium finish, steel construction. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, energy-efficient, security features, durable construction, 3/4 angle view, professional lighting",
+      "Professional product catalogue photography of exterior door, made of steel. exterior door with premium finish, steel construction. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, energy-efficient, security features, durable construction, front view, side view visible, professional catalogue style",
+      "Professional product catalogue photography of exterior door, made of steel. exterior door with premium finish, steel construction. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, energy-efficient, security features, durable construction, installed in modern home setting, natural lighting"
+    ],
+    "productUrl": "https://develloinc.com/storecatalogue#exterior-door"
+  },
+  {
+    "productId": "9aa05a4d-fbf8-41f1-99e7-ff36e7e856f4",
+    "productName": "Sliding Door",
+    "slug": "sliding-door",
+    "category": "doors",
+    "material": "glass",
+    "price": 95000,
+    "primaryPrompt": "Professional product catalogue photography of sliding door, made of glass. sliding door with premium finish, glass construction. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, modern design",
+    "alternativePrompts": [
+      "Professional product catalogue photography of sliding door, made of glass. sliding door with premium finish, glass construction. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, modern design, isolated on white background, product photography",
+      "Professional product catalogue photography of sliding door, made of glass. sliding door with premium finish, glass construction. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, modern design, 3/4 angle view, professional lighting",
+      "Professional product catalogue photography of sliding door, made of glass. sliding door with premium finish, glass construction. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, modern design, front view, side view visible, professional catalogue style",
+      "Professional product catalogue photography of sliding door, made of glass. sliding door with premium finish, glass construction. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, modern design, installed in modern home setting, natural lighting"
+    ],
+    "productUrl": "https://develloinc.com/storecatalogue#sliding-door"
+  },
+  {
+    "productId": "ebd30759-ff62-4507-b8b1-8251f2ec9c7e",
+    "productName": "Door Handle Set",
+    "slug": "door-handle-set",
+    "category": "hardware",
+    "material": null,
+    "price": 4500,
+    "primaryPrompt": "Professional product catalogue photography of door handle set. Premium door handle set, handles style. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, metallic finish visible, premium quality",
+    "alternativePrompts": [
+      "Professional product catalogue photography of door handle set. Premium door handle set, handles style. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, metallic finish visible, premium quality, isolated on white background, product photography",
+      "Professional product catalogue photography of door handle set. Premium door handle set, handles style. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, metallic finish visible, premium quality, 3/4 angle view, professional lighting",
+      "Professional product catalogue photography of door handle set. Premium door handle set, handles style. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, metallic finish visible, premium quality, front view, side view visible, professional catalogue style",
+      "Professional product catalogue photography of door handle set. Premium door handle set, handles style. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, metallic finish visible, premium quality, close-up detail shot, macro photography"
+    ],
+    "productUrl": "https://develloinc.com/storecatalogue#door-handle-set"
+  },
+  {
+    "productId": "b3e9773d-ae1f-45e3-9a72-49044a01c67f",
+    "productName": "Lock Set",
+    "slug": "lock-set",
+    "category": "hardware",
+    "material": null,
+    "price": 12000,
+    "primaryPrompt": "Professional product catalogue photography of lock set. Premium lock set, locks style. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, metallic finish visible, security features",
+    "alternativePrompts": [
+      "Professional product catalogue photography of lock set. Premium lock set, locks style. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, metallic finish visible, security features, isolated on white background, product photography",
+      "Professional product catalogue photography of lock set. Premium lock set, locks style. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, metallic finish visible, security features, 3/4 angle view, professional lighting",
+      "Professional product catalogue photography of lock set. Premium lock set, locks style. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, metallic finish visible, security features, front view, side view visible, professional catalogue style",
+      "Professional product catalogue photography of lock set. Premium lock set, locks style. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, metallic finish visible, security features, close-up detail shot, macro photography"
+    ],
+    "productUrl": "https://develloinc.com/storecatalogue#lock-set"
+  },
+  {
+    "productId": "8dbe8335-07e9-4b02-9edd-7ae28745821b",
+    "productName": "Hinges",
+    "slug": "hinges",
+    "category": "hardware",
+    "material": null,
+    "price": 2500,
+    "primaryPrompt": "Professional product catalogue photography of hinges. Premium hinges, hinges style. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, metallic finish visible",
+    "alternativePrompts": [
+      "Professional product catalogue photography of hinges. Premium hinges, hinges style. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, metallic finish visible, isolated on white background, product photography",
+      "Professional product catalogue photography of hinges. Premium hinges, hinges style. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, metallic finish visible, 3/4 angle view, professional lighting",
+      "Professional product catalogue photography of hinges. Premium hinges, hinges style. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, metallic finish visible, front view, side view visible, professional catalogue style",
+      "Professional product catalogue photography of hinges. Premium hinges, hinges style. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, metallic finish visible, close-up detail shot, macro photography"
+    ],
+    "productUrl": "https://develloinc.com/storecatalogue#hinges"
+  },
+  {
+    "productId": "a3a7529d-956a-4742-866a-8bfa7de37323",
+    "productName": "Custom Window",
+    "slug": "custom-window",
+    "category": "custom",
+    "material": null,
+    "price": 50000,
+    "primaryPrompt": "Professional product catalogue photography of custom window. Custom fabricated window. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography",
+    "alternativePrompts": [
+      "Professional product catalogue photography of custom window. Custom fabricated window. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, isolated on white background, product photography",
+      "Professional product catalogue photography of custom window. Custom fabricated window. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, 3/4 angle view, professional lighting",
+      "Professional product catalogue photography of custom window. Custom fabricated window. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, front view, side view visible, professional catalogue style"
+    ],
+    "productUrl": "https://develloinc.com/storecatalogue#custom-window"
+  },
+  {
+    "productId": "bf81daaf-7b11-417e-b136-a219129ea2dd",
+    "productName": "Custom Door",
+    "slug": "custom-door",
+    "category": "custom",
+    "material": null,
+    "price": 80000,
+    "primaryPrompt": "Professional product catalogue photography of custom door. Custom fabricated door. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, premium quality",
+    "alternativePrompts": [
+      "Professional product catalogue photography of custom door. Custom fabricated door. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, premium quality, isolated on white background, product photography",
+      "Professional product catalogue photography of custom door. Custom fabricated door. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, premium quality, 3/4 angle view, professional lighting",
+      "Professional product catalogue photography of custom door. Custom fabricated door. Product shot on white background, studio lighting, professional catalogue style, high resolution, sharp focus, commercial photography, premium quality, front view, side view visible, professional catalogue style"
+    ],
+    "productUrl": "https://develloinc.com/storecatalogue#custom-door"
+  }
+]

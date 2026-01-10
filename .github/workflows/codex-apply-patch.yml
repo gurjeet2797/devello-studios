@@ -1,0 +1,36 @@
+name: Codex – Apply Patch to Master
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  apply-patch:
+    if: >
+      github.event.issue.pull_request == null &&
+      contains(github.event.comment.body, '/apply-patch')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Extract patch from comment
+        run: |
+          awk '/```(diff|patch)/,/```/ {print}' <<< "$COMMENT" | sed '1d;$d' > patch.diff
+          test -s patch.diff || { echo "No patch block found"; exit 1; }
+        env:
+          COMMENT: ${{ github.event.comment.body }}
+      - name: Apply patch
+        run: |
+          git config user.name "codex-bot"
+          git config user.email "codex-bot@users.noreply.github.com"
+          git checkout master
+          git apply --whitespace=fix patch.diff
+          git add -A
+          git commit -m "codex: apply patch from issue #${{ github.event.issue.number }}"
+          git push origin master
+
