@@ -63,7 +63,7 @@ export default function Privacy() {
                 <li>Profile information and preferences</li>
                 <li>Payment and billing information (processed securely by third-party providers)</li>
                 <li>Shipping and delivery addresses (for product orders)</li>
-                <li>Project specifications and requirements (for consulting, construction, and manufacturing services)</li>
+                <li>Project specifications and requirements (for software development services)</li>
                 <li>Business information (for consulting and partnership services)</li>
                 <li>Communication records (support requests, feedback, project communications)</li>
               </ul>
@@ -79,11 +79,11 @@ export default function Privacy() {
               <h2>2. How We Use Your Information</h2>
               <p>We use the information we collect to:</p>
               <ul>
-                <li>Provide, maintain, and improve our services (AI image editing, consulting, construction, software development, manufacturing, and e-commerce)</li>
+                <li>Provide, maintain, and improve our services (AI image editing and software development)</li>
                 <li>Process your images using AI algorithms</li>
                 <li>Process payments and manage subscriptions</li>
                 <li>Fulfill orders for products and services</li>
-                <li>Coordinate and deliver consulting, construction, and manufacturing projects</li>
+                <li>Coordinate and deliver software development projects</li>
                 <li>Send you technical notices, support messages, and project updates</li>
                 <li>Respond to your comments, questions, and service requests</li>
                 <li>Monitor and analyze usage patterns to improve our services</li>
@@ -98,7 +98,7 @@ export default function Privacy() {
               <ul>
                 <li>Images are processed in real-time and deleted after processing</li>
                 <li>We may temporarily cache images for performance optimization</li>
-                <li>Project images and specifications for consulting, construction, and manufacturing services are retained as necessary to fulfill service agreements</li>
+                <li>Project images and specifications for software development services are retained as necessary to fulfill service agreements</li>
                 <li>You can request deletion of any stored images at any time, subject to our retention obligations for active projects</li>
                 <li>We implement industry-standard security measures to protect your images and project data</li>
               </ul>

@@ -174,41 +174,17 @@ export default function AboutPage() {
               <p className={`text-base sm:text-lg leading-relaxed ${
                 isDark ? 'text-white/80' : 'text-gray-700'
               }`}>
-                Today, Devello operates as an ecosystem where design excellence meets masterful execution. We're expanding beyond construction into a comprehensive network that connects clients with expert partners across three core areas: construction, software development, and business consultation services.
+                Today, Devello Studios operates as a platform for AI-powered creative tools. We focus on software development and delivering innovative digital solutions.
               </p>
               
               <p className={`text-base sm:text-lg leading-relaxed ${
                 isDark ? 'text-white/80' : 'text-gray-700'
               }`}>
-                Our mission is to build not only structures, but systems and experiences that endure. Every window, door, and custom piece reflects our obsession with quality. We're crafting a legacy that bridges the physical and digital worlds, redefining what it means to be a builder in the 21st century.
+                Our mission is to build software and digital experiences that endure. Every tool and feature reflects our obsession with quality. We're crafting a legacy in the digital world, redefining what it means to create in the 21st century.
               </p>
 
               {/* Services Grid */}
               <div className="grid grid-cols-2 gap-4 mt-8">
-                {/* Construction - Link to Construction Page */}
-                <Link href="/construction" className="block">
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className={`p-4 sm:p-5 rounded-xl border cursor-pointer transition-all duration-300 ${
-                      isDark 
-                        ? 'bg-orange-500/20 border-orange-400/30 hover:bg-orange-500/30 hover:border-orange-400/50' 
-                        : 'bg-orange-100/50 border-orange-300/50 hover:bg-orange-100 hover:border-orange-400'
-                    }`}
-                  >
-                    <h3 className={`text-sm sm:text-base font-semibold mb-1 break-words ${
-                      isDark ? 'text-orange-300' : 'text-orange-700'
-                    }`}>
-                      Construction
-                    </h3>
-                    <p className={`text-xs sm:text-sm leading-relaxed break-words ${
-                      isDark ? 'text-orange-200/80' : 'text-orange-600'
-                    }`}>
-                      Quality work & partnerships
-                    </p>
-                  </motion.div>
-                </Link>
-                
                 {/* Software Development - Link to Software Page */}
                 <a href="https://devellotech.com" target="_blank" rel="noopener noreferrer" className="block">
                   <motion.div
@@ -314,12 +290,12 @@ export default function AboutPage() {
                 <h3 className={`text-lg font-semibold mb-3 ${
                   isDark ? 'text-white' : 'text-gray-900'
                 }`}>
-                  Construction Partners
+                  Software Development Partners
                 </h3>
                 <p className={`text-sm leading-relaxed ${
                   isDark ? 'text-white/70' : 'text-gray-600'
                 }`}>
-                  We sign on construction vendors to build in the real world. Our network of trusted partners ensures quality workmanship and reliable service for every physical construction project.
+                  We partner with software development and IT solutions vendors. These partners help us deliver innovative software solutions and digital platforms to clients.
                 </p>
               </div>
 
@@ -329,12 +305,12 @@ export default function AboutPage() {
                 <h3 className={`text-lg font-semibold mb-3 ${
                   isDark ? 'text-white' : 'text-gray-900'
                 }`}>
-                  Software Development Partners
+                  Design Partners
                 </h3>
                 <p className={`text-sm leading-relaxed ${
                   isDark ? 'text-white/70' : 'text-gray-600'
                 }`}>
-                  We partner with software development and IT solutions vendors to offer digital construction services. These partners help us deliver innovative software solutions and digital platforms to clients.
+                  We work with design professionals and creative agencies to deliver exceptional digital experiences and visual solutions.
                 </p>
               </div>
 
@@ -449,7 +425,7 @@ export default function AboutPage() {
               <p className={`text-sm sm:text-base leading-relaxed pb-4 sm:pb-6 ${
                 isDark ? 'text-white/70' : 'text-gray-600'
               }`}>
-                Devello is building a platform for innovative solutions that bridge physical and digital construction. We're seeking partners who share our vision of enduring growth and meaningful impact.
+                Devello Studios is building a platform for innovative software solutions. We're seeking partners who share our vision of enduring growth and meaningful impact.
               </p>
 
               <ul className={`space-y-3 text-sm sm:text-base ${
@@ -477,7 +453,7 @@ export default function AboutPage() {
                   }`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span>Construction, software, and consulting collaboration</span>
+                  <span>Software development and design collaboration</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <svg className={`w-5 h-5 mt-0.5 flex-shrink-0 ${
@@ -582,12 +558,12 @@ export default function AboutPage() {
                 <h3 className={`text-xl font-semibold mb-4 ${
                   isDark ? 'text-white' : 'text-gray-900'
                 }`}>
-                  Construction Clients
+                  Software Clients
                 </h3>
                 <p className={`leading-relaxed mb-4 ${
                   isDark ? 'text-white/80' : 'text-gray-700'
                 }`}>
-                  Our construction services have earned the trust of homeowners and businesses across the region. We've built lasting relationships through consistent quality, timely delivery, and transparent communication.
+                  Our software services have earned the trust of businesses and creators across the region. We've built lasting relationships through consistent quality, timely delivery, and transparent communication.
                 </p>
                 <div className="space-y-2">
                   <div className={`text-sm ${isDark ? 'text-white/60' : 'text-gray-600'}`}>

@@ -1,19 +1,14 @@
 import Head from 'next/head';
 import { getDomainConfig } from '../lib/seoConfig';
-import { generateBreadcrumbSchema } from '../lib/breadcrumbSchema';
-import { generateFAQSchema } from '../lib/faqSchema';
 
 const SEO = ({
-  title = "Devello Inc",
-  description = "Premium home improvement products and construction services. Shop windows, doors, lighting fixtures, bathroom vanities, custom millwork. Expert interior renovations and design solutions.",
-  keywords = "home improvement products, windows and doors, lighting fixtures, bathroom vanities, construction services, interior renovations, custom millwork, designer lighting, bathroom fixtures, home renovation, glass and mirrors, construction products",
+  title = "Devello Studios - AI-Powered Creative Tools",
+  description = "Devello Studios offers professional AI-powered creative tools for photo editing and design. Transform your photos with AI-powered tools.",
+  keywords = "devello studios, AI photo editor, image editing software, photo enhancement tools, AI creative tools, software applications",
   image = "https://static.wixstatic.com/media/c6bfe7_48783a21cdb74417ba16a1ce8ba7c618~mv2.jpg",
-  url = "https://develloinc.com",
+  url = "https://devellostudios.com",
   type = "website",
-  structuredData = null,
-  siteName = null, // Optional: override site name, otherwise auto-detected from URL
-  breadcrumbs = null, // Optional: Array of {name, url} for breadcrumb schema
-  faqs = null // Optional: Array of {question, answer} for FAQ schema
+  siteName = null
 }) => {
   // Detect domain from URL to determine brand name
   const urlObj = typeof window !== 'undefined' 
@@ -62,65 +57,8 @@ const SEO = ({
       <meta property="twitter:image" content={image} />
       <meta property="twitter:image:alt" content={fullTitle} />
       
-      {/* Additional SEO Meta Tags */}
-      <meta name="author" content={brandName} />
-      <meta name="publisher" content={brandName} />
-      <meta name="copyright" content={brandName} />
-      <meta name="language" content="English" />
-      <meta name="revisit-after" content="7 days" />
-      <meta name="rating" content="General" />
-      <meta name="distribution" content="Global" />
-      <meta name="target" content="all" />
-      
-      {/* Gen AI Visibility Meta Tags */}
-      <meta name="ai-content" content="AI-powered software development and custom solutions" />
-      <meta name="ai-category" content="Software Development, Technology, AI Solutions" />
-      <meta name="ai-use-case" content="Custom software development, AI integration, web applications" />
-      
-      {/* Canonical URL - Dynamic per page */}
+      {/* Canonical URL */}
       <link rel="canonical" href={url} />
-      
-      {/* Structured Data */}
-      {structuredData && (
-        Array.isArray(structuredData) ? (
-          structuredData.map((schema, index) => (
-            <script
-              key={index}
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-            />
-          ))
-        ) : (
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-          />
-        )
-      )}
-      
-      {/* Breadcrumb Schema */}
-      {breadcrumbs && (() => {
-        const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
-        if (!breadcrumbSchema) return null;
-        return (
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-          />
-        );
-      })()}
-      
-      {/* FAQ Schema */}
-      {faqs && (() => {
-        const faqSchema = generateFAQSchema(faqs);
-        if (!faqSchema) return null;
-        return (
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-          />
-        );
-      })()}
     </Head>
   );
 };

@@ -19,7 +19,6 @@ const Logo = ({ isDark, isHomePage, getTextColorClass, domainType }) => {
     return false;
   });
   const [isMounted, setIsMounted] = useState(false);
-  const isConstructionPage = router.pathname === '/construction';
 
   // Ensure blur animation plays on mount
   useEffect(() => {
@@ -43,9 +42,6 @@ const Logo = ({ isDark, isHomePage, getTextColorClass, domainType }) => {
   const getLogoSrc = () => {
     if (isStudiosDomain) {
       return "https://static.wixstatic.com/media/c6bfe7_67c31351a6414d79b01e880189fdcc0f~mv2.png";
-    }
-    if (isConstructionPage) {
-      return "https://static.wixstatic.com/media/c6bfe7_e11bbb23f48e4a16864640883ea140a7~mv2.png";
     }
     return "https://static.wixstatic.com/media/c6bfe7_6193a40bdca64eb288eabf76cc540dbd~mv2.png";
   };
@@ -74,11 +70,8 @@ const Logo = ({ isDark, isHomePage, getTextColorClass, domainType }) => {
                 <motion.img
                   key={logoSrc}
                   src={logoSrc}
-                  alt={isConstructionPage ? "Devello Construction Logo" : isStudiosDomain ? "Devello Studios Logo" : "Devello Inc Logo"}
+                  alt={isStudiosDomain ? "Devello Studios Logo" : "Devello Inc Logo"}
                   className={`${isStudiosDomain ? 'h-10 w-10' : 'h-10 w-10'} object-contain hover:scale-105`}
-                  style={{ 
-                    scale: isConstructionPage ? 1.15 : 1,
-                  }}
                   initial={{ opacity: 0, filter: 'blur(10px)' }}
                   animate={{ opacity: 1, filter: 'blur(0px)' }}
                   exit={{ opacity: 0, filter: 'blur(10px)' }}
@@ -110,7 +103,6 @@ export const MobileLogo = ({ isDark, isHomePage, domainType }) => {
     return false;
   });
   const [isMounted, setIsMounted] = useState(false);
-  const isConstructionPage = router.pathname === '/construction';
 
   // Ensure blur animation plays on mount
   useEffect(() => {
@@ -134,9 +126,6 @@ export const MobileLogo = ({ isDark, isHomePage, domainType }) => {
   const getLogoSrc = () => {
     if (isStudiosDomain) {
       return "https://static.wixstatic.com/media/c6bfe7_67c31351a6414d79b01e880189fdcc0f~mv2.png";
-    }
-    if (isConstructionPage) {
-      return "https://static.wixstatic.com/media/c6bfe7_e11bbb23f48e4a16864640883ea140a7~mv2.png";
     }
     return "https://static.wixstatic.com/media/c6bfe7_6193a40bdca64eb288eabf76cc540dbd~mv2.png";
   };
@@ -166,11 +155,8 @@ export const MobileLogo = ({ isDark, isHomePage, domainType }) => {
               <motion.img
                 key={logoSrc}
                 src={logoSrc}
-                alt={isConstructionPage ? "Devello Construction Logo" : isStudiosDomain ? "Devello Studios Logo" : "Devello Inc Logo"}
+                alt={isStudiosDomain ? "Devello Studios Logo" : "Devello Inc Logo"}
                 className={`${isStudiosDomain ? 'h-10 w-10' : 'h-10 w-10'} object-contain hover:scale-105`}
-                style={{ 
-                  scale: isConstructionPage ? 1.15 : 1,
-                }}
                 initial={{ opacity: 0, filter: 'blur(10px)' }}
                 animate={{ opacity: 1, filter: 'blur(0px)' }}
                 exit={{ opacity: 0, filter: 'blur(10px)' }}

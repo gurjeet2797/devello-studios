@@ -9,7 +9,6 @@ import { Label } from '../ui/Label';
 import { getSupabase } from '../../lib/supabaseClient';
 
 const INDUSTRIES = [
-  { id: 'construction', label: 'Construction / Real Estate', helper: 'Plan and build spaces.' },
   { id: 'consulting', label: 'Business Consulting', helper: 'Advise businesses.' },
   { id: 'software_dev', label: 'Software Development', helper: 'Design and ship software.' },
   { id: 'manufacturing', label: 'Manufacturing / Fabrication', helper: 'Make and assemble parts.' }
@@ -41,16 +40,6 @@ const getIndustryColors = (industryId, isDark, isSelected) => {
           : `rgba(56, 189, 248, ${borderOpacity - 0.1})`,
         textColor: isDark ? 'text-sky-200' : 'text-sky-800'
       };
-    case 'construction':
-      return {
-        bgColor: isDark
-          ? `color-mix(in srgb, rgba(249, 115, 22, ${baseOpacity}) 40%, rgba(220, 220, 220, 0.2))`
-          : `color-mix(in srgb, rgba(249, 115, 22, ${baseOpacity - 0.05}) 40%, rgba(220, 220, 220, 0.2))`,
-        borderColor: isDark 
-          ? `rgba(251, 146, 60, ${borderOpacity})` 
-          : `rgba(249, 115, 22, ${borderOpacity - 0.1})`,
-        textColor: isDark ? 'text-orange-200' : 'text-orange-800'
-      };
     case 'consulting':
       return {
         bgColor: isDark
@@ -81,7 +70,6 @@ const getIndustryColors = (industryId, isDark, isSelected) => {
 };
 
 const SUBSERVICES = {
-  construction: ['General Build', 'Interior Renovation', 'Electrical/Plumbing', 'Design Firm', 'Architecture Firm', 'Engineering Firm'],
   consulting: ['Build a business', 'Expand existing business', 'Finance Consultation', 'Compliance'],
   software_dev: ['Web Apps', 'Mobile Apps', 'AI/ML', 'Data', 'DevOps'],
   manufacturing: ['CNC', '3D Printing', 'Molding', 'Sheet Metal', 'Assembly', 'Fabrication']

@@ -467,7 +467,7 @@ export default function StudiosPage({ onStart }) {
             <p className={`text-base leading-relaxed max-w-3xl transition-colors duration-1000 ${
               isDark ? 'text-white/80' : 'text-gray-600'
             }`}>
-              Explore our thoughts on design, construction, technology, and innovation. Our blog covers everything from industry insights to behind-the-scenes stories.
+              Explore our thoughts on design, technology, and innovation. Our blog covers everything from industry insights to behind-the-scenes stories.
             </p>
           </div>
 

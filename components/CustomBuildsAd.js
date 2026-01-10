@@ -369,13 +369,13 @@ const CustomBuildsButton = ({ isDark = false, formTitle = "Custom Builds", color
                   (() => {
                     const titleLower = formTitle.toLowerCase();
                     return (titleLower.includes('consultation') || 
-                            (titleLower.includes('build') && !titleLower.includes('product') && !titleLower.includes('renovation') && !titleLower.includes('construction') && !titleLower.includes('custom'))) 
+                            (titleLower.includes('build') && !titleLower.includes('product') && !titleLower.includes('renovation') && !titleLower.includes('custom'))) 
                             ? 'pt-8 sm:pt-12 md:pt-16' : '';
                   })()
                 }`}>
                   {(() => {
                     const titleLower = formTitle.toLowerCase();
-                    // Custom builds form (manufacturing/construction)
+                    // Custom builds form
                     return (
                       <CustomProductForm 
                         isDark={isDark} 

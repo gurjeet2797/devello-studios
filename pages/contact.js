@@ -75,14 +75,10 @@ export default function Contact() {
   return (
     <>
       <SEOComponent 
-        title="Contact Devello Inc – Support & Customer Service"
-        description="Contact Devello Inc for support, questions, or inquiries about our construction services, software development, AI tools, or products. Get help from our expert team."
-        keywords="contact devello, devello support, devello customer service, devello contact, devello inc contact, devello help"
-        url="https://develloinc.com/contact"
-        breadcrumbs={[
-          { name: "Home", url: "https://develloinc.com" },
-          { name: "Contact", url: "https://develloinc.com/contact" }
-        ]}
+        title="Contact Devello Studios – Support & Customer Service"
+        description="Contact Devello Studios for support, questions, or inquiries about our AI tools and software. Get help from our expert team."
+        keywords="contact devello studios, devello support, devello customer service, devello contact, devello studios help"
+        url="https://devellostudios.com/contact"
       />
 
       <div className={`min-h-screen py-6 sm:py-12 pb-24 sm:pb-32 transition-colors duration-700 ${

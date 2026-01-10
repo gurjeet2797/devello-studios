@@ -9,13 +9,6 @@ export const getServicePageTint = (router, isDark) => {
         : 'color-mix(in srgb, rgba(56, 189, 248, 0.25) 40%, rgba(220, 220, 220, 0.2))',
       borderColor: isDark ? 'rgba(125, 211, 252, 0.4)' : 'rgba(56, 189, 248, 0.3)'
     };
-  } else if (pathname === '/construction') {
-    return {
-      bgColor: isDark
-        ? 'color-mix(in srgb, rgba(249, 115, 22, 0.3) 40%, rgba(220, 220, 220, 0.2))'
-        : 'color-mix(in srgb, rgba(249, 115, 22, 0.25) 40%, rgba(220, 220, 220, 0.2))',
-      borderColor: isDark ? 'rgba(251, 146, 60, 0.4)' : 'rgba(249, 115, 22, 0.3)'
-    };
   } else if (pathname === '/custom') {
     return {
       bgColor: isDark
@@ -66,12 +59,6 @@ export const getServiceDropdownStyle = (subItem, isDark, router, isActive = fals
       ? (isActive ? 'color-mix(in srgb, rgba(59, 130, 246, 0.3) 40%, rgba(220, 220, 220, 0.2))' : 'color-mix(in srgb, rgba(59, 130, 246, 0.3) 40%, rgba(220, 220, 220, 0.2))')
       : (isActive ? 'color-mix(in srgb, rgba(59, 130, 246, 0.25) 40%, rgba(220, 220, 220, 0.2))' : 'color-mix(in srgb, rgba(59, 130, 246, 0.25) 40%, rgba(220, 220, 220, 0.2))');
     borderColor = isDark ? 'rgba(96, 165, 250, 0.5)' : 'rgba(59, 130, 246, 0.4)';
-  } else if (subItem.name === 'Construction Services' || subItem.name === 'Construction' || subItem.name === 'Interior Renovations') {
-    textColor = isDark ? 'text-orange-300 hover:text-orange-200' : 'text-orange-700 hover:text-orange-800';
-    bgColor = isDark
-      ? 'color-mix(in srgb, rgba(249, 115, 22, 0.3) 40%, rgba(220, 220, 220, 0.2))'
-      : 'color-mix(in srgb, rgba(249, 115, 22, 0.25) 40%, rgba(220, 220, 220, 0.2))';
-    borderColor = isDark ? 'rgba(251, 146, 60, 0.5)' : 'rgba(249, 115, 22, 0.4)';
   } else if (subItem.name === 'Custom Fabrication' || subItem.name === 'Bespoke Millwork' || subItem.name === 'Bespoke' || subItem.name === 'Millwork & Custom Builds') {
     textColor = isDark ? 'text-emerald-300 hover:text-emerald-200' : 'text-emerald-700 hover:text-emerald-800';
     bgColor = isDark
@@ -306,7 +293,7 @@ export const getNavItemButtonTint = (item, isActive, toolState, router, isDark) 
   }
   
   // Check for service page tint first
-  if (item.href && (item.href === '/software' || item.href === '/construction' || item.href === '/consulting')) {
+  if (item.href && (item.href === '/software' || item.href === '/consulting')) {
     const serviceTint = getServicePageTint(router, isDark);
     if (serviceTint && isActive) {
       return serviceTint;

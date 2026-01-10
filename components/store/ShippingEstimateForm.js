@@ -120,7 +120,6 @@ export default function ShippingEstimateForm({
               <option value={DeliveryAccess.RESIDENTIAL}>Residential</option>
               <option value={DeliveryAccess.COMMERCIAL_DOCK}>Commercial (with dock)</option>
               <option value={DeliveryAccess.COMMERCIAL_NO_DOCK}>Commercial (no dock)</option>
-              <option value={DeliveryAccess.CONSTRUCTION_SITE}>Construction Site</option>
             </select>
           </div>
 

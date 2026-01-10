@@ -59,15 +59,11 @@ export default function Terms() {
 
               <h2>2. Description of Service</h2>
               <p>
-                Devello Inc provides a comprehensive platform offering AI-powered image editing and enhancement tools, business consulting services, construction services, software development, manufacturing services, and an e-commerce marketplace for windows, doors, mirrors, and related products. Our services include but are not limited to:
+                Devello Studios provides AI-powered image editing and enhancement tools. Our services include but are not limited to:
               </p>
               <ul>
                 <li>AI-powered image editing tools (lighting adjustments, general editing, AI-assisted editing)</li>
-                <li>Business consulting services (strategy, operations, leadership coaching)</li>
-                <li>Construction and renovation services</li>
                 <li>Software development services</li>
-                <li>Manufacturing services (CNC, 3D printing, fabrication, etc.)</li>
-                <li>E-commerce platform for architectural products</li>
               </ul>
               <p>
                 Services are provided on a subscription, pay-per-use, or project-based basis as specified in individual service agreements.
@@ -95,7 +91,7 @@ export default function Terms() {
                 You retain ownership of any content you upload to the Service, including images, project specifications, and business information. By using the Service, you grant Devello Inc a limited, non-exclusive license to process your content solely for the purpose of providing the requested services. You are responsible for ensuring you have the right to upload and process any content you submit, including obtaining necessary permissions for images, designs, or proprietary information.
               </p>
               <p>
-                For consulting, construction, software development, and manufacturing services, work product and deliverables are subject to the terms specified in individual service agreements or contracts.
+                For software development services, work product and deliverables are subject to the terms specified in individual service agreements or contracts.
               </p>
 
               <h2>6. AI-Generated Content and Service Results</h2>
@@ -103,7 +99,7 @@ export default function Terms() {
                 Our AI-powered image editing tools use artificial intelligence to enhance and edit images. AI-generated results are for creative and marketing purposes only and should not be considered as professional photography or architectural documentation. Results may vary and are not guaranteed to meet specific requirements.
               </p>
               <p>
-                For consulting, construction, software development, and manufacturing services, deliverables and outcomes are subject to the specifications and terms outlined in individual service agreements. We strive to meet agreed-upon specifications but cannot guarantee results beyond what is explicitly stated in service contracts.
+                For software development services, deliverables and outcomes are subject to the specifications and terms outlined in individual service agreements. We strive to meet agreed-upon specifications but cannot guarantee results beyond what is explicitly stated in service contracts.
               </p>
 
               <h2>7. Payment and Billing</h2>
@@ -113,7 +109,6 @@ export default function Terms() {
               <ul>
                 <li><strong>Software Services:</strong> Subscription fees and one-time purchases are billed in advance. All fees are non-refundable unless otherwise specified.</li>
                 <li><strong>Consulting Services:</strong> Fees are typically billed per session or project as specified in service agreements. Payment terms and refund policies are outlined in individual consultation contracts.</li>
-                <li><strong>Construction & Manufacturing:</strong> Payment terms, deposits, and milestone payments are specified in project contracts and quotes.</li>
                 <li><strong>E-commerce Products:</strong> Payment is required at checkout. Refund and return policies are specified in individual product listings and shipping policies.</li>
               </ul>
               <p>

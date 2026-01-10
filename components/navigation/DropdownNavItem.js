@@ -24,7 +24,7 @@ const DropdownNavItem = memo(({ item, toolStates, isDark, onOpenChange, textColo
   // Close dropdown when route changes to a service page or tool page
   useEffect(() => {
     const handleRouteChange = (url) => {
-      const servicePages = ['/software', '/construction', '/custom', '/consulting'];
+      const servicePages = ['/software', '/custom', '/consulting'];
       const toolPages = ['/general-edit', '/lighting', '/assisted-edit', '/studios', '/products'];
       if (servicePages.includes(url) || toolPages.includes(url)) {
         setIsOpen(false);
