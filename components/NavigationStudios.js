@@ -281,9 +281,9 @@ export default function NavigationStudios({ domainType = 'studios' }) {
                   name: 'Apps',
                   isDropdown: true,
                   items: [
-                    { name: 'Professional Lighting', href: '/lighting', icon: 'lighting', toolId: null, external: false },
-                    { name: 'Assisted Edit', href: '/assisted-edit', icon: 'ai', toolId: null, external: false },
-                    { name: 'General Edit', href: '/general-edit', icon: 'edit', toolId: null, external: false }
+                    { name: 'Relight app', href: '/lighting', icon: 'lighting', toolId: null, external: false },
+                    { name: 'image editor', href: '/general-edit', icon: 'edit', toolId: null, external: false },
+                    { name: 'product Editor', href: 'https://catalog-editor-989777430052.us-west1.run.app', icon: 'ai', toolId: null, external: true }
                   ]
                 }}
                 toolStates={toolStates}

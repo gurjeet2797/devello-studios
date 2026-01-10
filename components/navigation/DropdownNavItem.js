@@ -141,6 +141,8 @@ const DropdownNavItem = memo(({ item, toolStates, isDark, onOpenChange, textColo
                   {subItem.external ? (
                     <a 
                       href={subItem.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       onClick={() => setIsOpen(false)}
                     >
                       <motion.div
