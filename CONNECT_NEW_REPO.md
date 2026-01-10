@@ -97,7 +97,7 @@ git branch -M main
 git add .
 git commit -m "Initial commit: Devello Studios separated codebase"
 
-# Push (when ready)
+# Push (when rea
 git push -u origin main
 ```
 
