@@ -1,5 +1,5 @@
 import React from 'react';
-import SEOComponent from '../components/SEO';
+import SEOComponent from '../../components/SEO';
 import GeneralEditStudio from './GeneralEditStudio';
 
 export default function GeneralEditPage() {
