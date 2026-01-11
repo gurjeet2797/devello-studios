@@ -32,8 +32,57 @@ const CustomBuildsButton = ({ isDark = false, formTitle = "Custom Builds", color
   const [isSpringing, setIsSpringing] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [isTablet, setIsTablet] = useState(false)
+  const [currentWordIndex, setCurrentWordIndex] = useState(0)
   const glassButtonRef = useRef(null)
   const router = useRouter()
+
+  const titleLower = formTitle.toLowerCase()
+  const isBuildRequest = titleLower.includes('build request')
+  
+  const dynamicWords = [
+    "anything",
+    "an app",
+    "a game",
+    "an image",
+    "a video"
+  ]
+
+  // Get gradient for current word
+  const getGradientForWord = (word) => {
+    // Explicit gradients for dynamic words (build request) - more vibrant colors
+    if (word === "anything") {
+      return "linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #ffffff 100%)" // blue
+    }
+    if (word === "an app") {
+      return "linear-gradient(135deg, #ea580c 0%, #f97316 50%, #ffffff 100%)" // orange
+    }
+    if (word === "a game") {
+      return "linear-gradient(135deg, #1a1a1a 0%, #404040 50%, #ffffff 100%)" // black
+    }
+    if (word === "an image") {
+      return "linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #ffffff 100%)" // yellow
+    }
+    if (word === "a video") {
+      return "linear-gradient(135deg, #059669 0%, #10b981 50%, #ffffff 100%)" // green
+    }
+    
+    // If custom color is provided (non-build-request buttons) - more vibrant
+    if (color === "orange") {
+      return "linear-gradient(135deg, #ea580c 0%, #f97316 50%, #ffffff 100%)"
+    }
+    if (color === "blue") {
+      return "linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #ffffff 100%)"
+    }
+    if (color === "yellow") {
+      return "linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #ffffff 100%)"
+    }
+    if (color === "green") {
+      return "linear-gradient(135deg, #059669 0%, #10b981 50%, #ffffff 100%)"
+    }
+    
+    // Fallback to blue gradient
+    return "linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #ffffff 100%)"
+  }
 
   // Detect mobile and tablet screen sizes
   useEffect(() => {
@@ -54,6 +103,17 @@ const CustomBuildsButton = ({ isDark = false, formTitle = "Custom Builds", color
     
     return () => clearTimeout(timer)
   }, [])
+
+  // Cycle through dynamic words for build request button
+  useEffect(() => {
+    if (isBuildRequest && !isExpanded && showGlassButton) {
+      const interval = setInterval(() => {
+        setCurrentWordIndex((prev) => (prev + 1) % dynamicWords.length)
+      }, 2000)
+
+      return () => clearInterval(interval)
+    }
+  }, [isBuildRequest, isExpanded, showGlassButton, dynamicWords.length])
 
   // Check for hash to auto-open form
   useEffect(() => {
@@ -166,15 +226,15 @@ const CustomBuildsButton = ({ isDark = false, formTitle = "Custom Builds", color
       {/* Glass Button - Centered */}
       <AnimatePresence>
         {showGlassButton && !isExpanded && (
-          <motion.div 
-            ref={glassButtonRef}
-            layoutId="custom-builds-glass-button"
-            className={`about-devello-glass cursor-pointer backdrop-blur-sm ${pacifico.className} mx-auto relative ${
-              buttonSize === 'large' 
-                ? 'px-4 pr-3 sm:px-10 sm:pr-8 md:px-12 md:pr-10 py-3 sm:py-5 md:py-6'
-                : ''
-            }`}
+          <motion.button
+            layoutId="build-button-glass-container"
             onClick={handleExpand}
+            ref={glassButtonRef}
+            className={`about-devello-glass build-button-gradient rounded-full mx-auto relative ${
+              buttonSize === 'large' 
+                ? 'px-6 pr-4 sm:px-12 sm:pr-10 md:px-16 md:pr-12 py-2 sm:py-4 md:py-5'
+                : 'px-4 pr-3 sm:px-10 sm:pr-8 md:px-12 md:pr-10 py-2 sm:py-3 md:py-4'
+            } max-w-[95vw] font-regular tracking-[0.02em] flex flex-col items-center justify-center gap-0 z-10 ${pacifico.className}`}
             initial={{ opacity: 0, scale: 0.9, y: 10 }}
             animate={{ 
               opacity: 1, 
@@ -228,16 +288,26 @@ const CustomBuildsButton = ({ isDark = false, formTitle = "Custom Builds", color
             }}
           >
             {/* Gradient background */}
-            <div
+            <motion.div
+              layoutId="cta-card-bg"
+              layout
+              animate={{ 
+                background: isBuildRequest 
+                  ? getGradientForWord(dynamicWords[currentWordIndex])
+                  : getGradientForWord(null)
+              }}
+              transition={{ 
+                layout: {
+                  duration: 0.6,
+                  ease: [0.16, 1, 0.3, 1]
+                },
+                background: {
+                  duration: isBuildRequest ? 0.3 : 0,
+                  ease: "easeInOut"
+                }
+              }}
               className="absolute inset-0 rounded-full"
               style={{
-                background: color === "orange" 
-                  ? "linear-gradient(135deg, #f97316 0%, #fb923c 50%, #ffffff 100%)"
-                  : color === "blue"
-                  ? "linear-gradient(135deg, #38bdf8 0%, #38bdf8 50%, #ffffff 100%)"
-                  : color === "yellow"
-                  ? "linear-gradient(135deg, #eab308 0%, #fbbf24 50%, #ffffff 100%)"
-                  : "linear-gradient(135deg, #10b981 0%, #34d399 50%, #ffffff 100%)", // green default
                 borderRadius: "9999px",
                 zIndex: -1,
                 opacity: 0.9
@@ -247,12 +317,34 @@ const CustomBuildsButton = ({ isDark = false, formTitle = "Custom Builds", color
               fontWeight: 300,
               fontFamily: 'inherit',
               color: 'white',
-              margin: '0 0 2px 0',
+              margin: '0 0 10px 0',
               lineHeight: '1.2',
               position: 'relative',
               zIndex: 1
             }}>
-              {formTitle.toLowerCase()}
+              {isBuildRequest ? (
+                <div className="flex items-center justify-center gap-0 flex-wrap sm:flex-nowrap">
+                  <span className="whitespace-nowrap">create</span>
+                  <span 
+                    className="relative inline-block text-center min-w-[80px] sm:min-w-[100px] md:min-w-[110px]"
+                  >
+                    <AnimatePresence mode="wait" initial={false}>
+                      <motion.span
+                        key={currentWordIndex}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className="inline-block whitespace-nowrap"
+                      >
+                        {dynamicWords[currentWordIndex]}
+                      </motion.span>
+                    </AnimatePresence>
+                  </span>
+                </div>
+              ) : (
+                formTitle.toLowerCase()
+              )}
             </h3>
             <p className={buttonSize === 'large' ? 'text-sm sm:text-base md:text-lg' : 'text-xs sm:text-xs'} style={{ 
               whiteSpace: 'nowrap', 
@@ -267,9 +359,9 @@ const CustomBuildsButton = ({ isDark = false, formTitle = "Custom Builds", color
               position: 'relative',
               zIndex: 1
             }}>
-              start my order <MousePointerClick className="w-2.5 h-2.5 sm:w-3 sm:h-3 inline-block align-middle" style={{ transform: 'translateY(-2px)' }} />
+              start here <MousePointerClick className="w-2.5 h-2.5 sm:w-3 sm:h-3 inline-block align-middle" style={{ transform: 'translateY(-2px)' }} />
             </p>
-          </motion.div>
+          </motion.button>
         )}
       </AnimatePresence>
 
@@ -299,7 +391,7 @@ const CustomBuildsButton = ({ isDark = false, formTitle = "Custom Builds", color
               onTouchMove={(e) => e.preventDefault()}
             >
               <motion.div
-                layoutId="custom-builds-glass-button"
+                layoutId="build-button-glass-container"
                 layout
                 transition={{
                   type: "spring",
