@@ -191,7 +191,7 @@ export default function IdeaBuildDemo({
           <textarea
             value={idea}
             onChange={(e) => setIdea(e.target.value)}
-            placeholder='e.g. "A scheduling app that texts clients automatically and tracks deposits."'
+            placeholder='e.g. "I want my business Instagram to look professional"'
             className={`w-full min-h-[96px] rounded-2xl px-4 py-3 outline-none border border-white/20 bg-white/10 ${
               isDark ? "text-white placeholder:text-white/40" : "text-black placeholder:text-black/40"
             }`}
