@@ -879,3 +879,26 @@ model ProductResearchJob {
   @@index([created_at])
   @@map("product_research_jobs")
 }
+
+// Creative Intelligence Engine - AI-powered ideation
+model IdeationJob {
+  id            String    @id @default(cuid())
+  status        String    @default("queued") @db.VarChar(20) // queued, processing, completed, failed
+  progress      Int       @default(0) // 0-100
+  message       String?   // Current status message
+  prompt        String    // User's app idea
+  context       Json?     // { platform, industry, tone, targetAudience }
+  result        Json?     // Generated concept JSON
+  errors        Json?     // Array of error messages
+  total_cost    Decimal?  @db.Decimal(10, 6) // Total API cost in USD
+  cost_breakdown Json?    // { gemini: 0.05 }
+  user_id       String?   // Optional user ID if authenticated
+  created_at    DateTime  @default(now()) @db.Timestamptz(6)
+  started_at    DateTime? @db.Timestamptz(6)
+  completed_at  DateTime? @db.Timestamptz(6)
+
+  @@index([status])
+  @@index([user_id])
+  @@index([created_at])
+  @@map("ideation_jobs")
+}

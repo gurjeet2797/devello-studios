@@ -17,6 +17,7 @@ import { Pacifico } from "next/font/google"
 import { MousePointerClick, X } from "lucide-react"
 import { useRouter } from 'next/router'
 import CustomProductForm from "./CustomProductForm"
+import IdeaBuildDemo from "./IdeaBuildDemo"
 
 const pacifico = Pacifico({
   subsets: ["latin"],
@@ -375,7 +376,21 @@ const CustomBuildsButton = ({ isDark = false, formTitle = "Custom Builds", color
                 }`}>
                   {(() => {
                     const titleLower = formTitle.toLowerCase();
-                    // Custom builds form
+                    const isBuildRequest = titleLower.includes('build request') || 
+                                         titleLower.includes('software');
+                    
+                    if (isBuildRequest) {
+                      return (
+                        <IdeaBuildDemo 
+                          isDark={isDark} 
+                          onClose={handleClose}
+                          onAnnotationModeChange={setIsInAnnotationMode}
+                          context={{}}
+                        />
+                      );
+                    }
+                    
+                    // Custom builds form for other cases
                     return (
                       <CustomProductForm 
                         isDark={isDark} 
