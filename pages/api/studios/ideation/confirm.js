@@ -5,8 +5,8 @@
  * Creates a conversation with a software partner.
  */
 
-import prismaClient from '../../../lib/prisma';
-import { createSupabaseAuthClient } from '../../../lib/supabaseClient';
+import prismaClient from '../../../../lib/prisma';
+import { createSupabaseAuthClient } from '../../../../lib/supabaseClient';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
