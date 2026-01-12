@@ -233,29 +233,6 @@ export default function AboutPage() {
                   </motion.div>
                 </Link>
                 
-                {/* Store - Link to Store Page */}
-                <Link href="/custom" className="block">
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className={`p-4 sm:p-5 rounded-xl border cursor-pointer transition-all duration-300 ${
-                      isDark 
-                        ? 'bg-green-500/20 border-green-400/30 hover:bg-green-500/30 hover:border-green-400/50' 
-                        : 'bg-green-100/50 border-green-300/50 hover:bg-green-100 hover:border-green-400'
-                    }`}
-                  >
-                    <h3 className={`text-sm sm:text-base font-semibold mb-1 break-words ${
-                      isDark ? 'text-green-300' : 'text-green-700'
-                    }`}>
-                      Store
-                    </h3>
-                    <p className={`text-xs sm:text-sm leading-relaxed break-words ${
-                      isDark ? 'text-green-200/80' : 'text-green-600'
-                    }`}>
-                      Browse products
-                    </p>
-                  </motion.div>
-                </Link>
               </div>
             </div>
           </div>

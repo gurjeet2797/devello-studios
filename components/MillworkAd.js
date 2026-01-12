@@ -387,8 +387,8 @@ const MillworkAd = ({ isDark = false }) => {
   }
 
   const handleGlassContainerClick = () => {
-    // Route to develloconstruction.com
-    window.open('https://develloconstruction.com', '_blank')
+    // Route to devellotech.com for software development services
+    window.open('https://devellotech.com', '_blank')
   }
 
   // Scroll lock when expanded
@@ -528,7 +528,7 @@ const MillworkAd = ({ isDark = false }) => {
             >
               <h3 className="text-xs sm:text-base md:text-lg font-light text-black m-0 p-0 text-center flex flex-row items-center justify-center gap-1 sm:gap-2 max-w-full overflow-hidden whitespace-nowrap leading-none">
                 <span className="inline whitespace-nowrap">explore</span>
-                <span className="inline whitespace-nowrap">devello construction</span>
+                <span className="inline whitespace-nowrap">devello tech</span>
                 <Link2 className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 flex-shrink-0 text-blue-500 stroke-blue-500" strokeWidth={2} />
               </h3>
             </motion.div>

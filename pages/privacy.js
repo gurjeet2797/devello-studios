@@ -62,7 +62,6 @@ export default function Privacy() {
                 <li>Name and email address (when you create an account)</li>
                 <li>Profile information and preferences</li>
                 <li>Payment and billing information (processed securely by third-party providers)</li>
-                <li>Shipping and delivery addresses (for product orders)</li>
                 <li>Project specifications and requirements (for software development services)</li>
                 <li>Business information (for consulting and partnership services)</li>
                 <li>Communication records (support requests, feedback, project communications)</li>
@@ -82,7 +81,6 @@ export default function Privacy() {
                 <li>Provide, maintain, and improve our services (AI image editing and software development)</li>
                 <li>Process your images using AI algorithms</li>
                 <li>Process payments and manage subscriptions</li>
-                <li>Fulfill orders for products and services</li>
                 <li>Coordinate and deliver software development projects</li>
                 <li>Send you technical notices, support messages, and project updates</li>
                 <li>Respond to your comments, questions, and service requests</li>

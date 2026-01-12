@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { X, Laptop, Settings, Home, Hammer, Briefcase, Package, ArrowLeft, MessageCircle, Globe, Building2, MousePointerClick } from "lucide-react"
+import { X, Laptop, Settings, Home, Briefcase, Package, ArrowLeft, MessageCircle, Globe, Building2, MousePointerClick } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { MeshGradient } from "@paper-design/shaders-react"
 import { getCalApi } from '@calcom/embed-react'
@@ -47,15 +47,6 @@ export default function BuildButton() {
       iconSecondary: Settings,
       color: 'blue',
       serviceType: 'software'
-    },
-    {
-      id: 'space',
-      title: 'Build Your Space',
-      description: 'Construction services',
-      icon: Home,
-      iconSecondary: Hammer,
-      color: 'orange',
-      serviceType: 'construction'
     },
     {
       id: 'company',
@@ -107,7 +98,6 @@ export default function BuildButton() {
       // Map service types to database values
       const serviceTypeMap = {
         'software': 'software_development',
-        'construction': 'construction',
         'consulting': 'consulting',
         'manufacturing': 'manufacturing'
       }
@@ -517,7 +507,6 @@ export default function BuildButton() {
                                 onClick={() => {
                                   const serviceRouteMap = {
                                     'software': '/software',
-                                    'construction': '/construction',
                                     'consulting': '/consulting',
                                     'manufacturing': '/custom'
                                   }
@@ -528,7 +517,6 @@ export default function BuildButton() {
                                 className={`inline-flex px-6 sm:px-8 py-3 sm:py-4 rounded-2xl text-sm sm:text-base font-medium transition-all duration-300 hover:scale-105 active:scale-95 text-white ${(() => {
                                   const serviceColorMap = {
                                     'software': 'bg-blue-600/40 border border-blue-500/50 hover:bg-blue-600/50 hover:border-blue-500/70',
-                                    'construction': 'bg-orange-600/40 border border-orange-500/50 hover:bg-orange-600/50 hover:border-orange-500/70',
                                     'consulting': 'bg-yellow-600/40 border border-yellow-500/50 hover:bg-yellow-600/50 hover:border-yellow-500/70',
                                     'manufacturing': 'bg-green-600/40 border border-green-500/50 hover:bg-green-600/50 hover:border-green-500/70'
                                   }
@@ -539,7 +527,6 @@ export default function BuildButton() {
                                   {(() => {
                                     const serviceButtonTextMap = {
                                       'software': 'Open Build Request',
-                                      'construction': 'custom builds',
                                       'consulting': 'get meaningful advice',
                                       'manufacturing': 'create product'
                                     }
@@ -557,24 +544,9 @@ export default function BuildButton() {
                             <h3 className="text-2xl sm:text-3xl font-semibold text-white mb-2">
                               Work with Devello
                             </h3>
-                            {selectedService?.serviceType === 'construction' ? (
-                              <p className="text-white/70 text-sm sm:text-base">
-                                We have an in-house construction firm that provides quality renovation services.{' '}
-                                <a 
-                                  href="https://develloconstruction.com" 
-                                  target="_blank" 
-                                  rel="noopener noreferrer"
-                                  className="text-blue-300 underline hover:text-blue-200 transition-colors"
-                                >
-                                  View our portfolio
-                                </a>
-                                {' '}or set up a quick call to discuss your project.
-                              </p>
-                            ) : (
-                              <p className="text-white/70 text-sm sm:text-base">
-                                Set up a quick call to discuss your custom requirements with Devello. For clients seeking professional involvement in the building process.
-                              </p>
-                            )}
+                            <p className="text-white/70 text-sm sm:text-base">
+                              Set up a quick call to discuss your custom requirements with Devello. For clients seeking professional software development and digital solutions.
+                            </p>
                           </div>
 
                           <div className={`bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 p-6 ${partners.length > 0 ? 'space-y-4' : ''}`}>
@@ -592,7 +564,6 @@ export default function BuildButton() {
                                 onClick={() => {
                                   const serviceRouteMap = {
                                     'software': '/software',
-                                    'construction': '/construction',
                                     'consulting': '/consulting',
                                     'manufacturing': '/custom'
                                   }
@@ -603,7 +574,6 @@ export default function BuildButton() {
                                 className={`w-full px-6 py-4 rounded-lg font-semibold text-base sm:text-lg transition-all duration-300 text-white hover:scale-105 active:scale-95 ${(() => {
                                   const serviceColorMap = {
                                     'software': 'bg-blue-600/40 border border-blue-500/50 hover:bg-blue-600/50 hover:border-blue-500/70',
-                                    'construction': 'bg-orange-600/40 border border-orange-500/50 hover:bg-orange-600/50 hover:border-orange-500/70',
                                     'consulting': 'bg-yellow-600/40 border border-yellow-500/50 hover:bg-yellow-600/50 hover:border-yellow-500/70',
                                     'manufacturing': 'bg-green-600/40 border border-green-500/50 hover:bg-green-600/50 hover:border-green-500/70'
                                   }
@@ -614,7 +584,6 @@ export default function BuildButton() {
                                   {(() => {
                                     const serviceButtonTextMap = {
                                       'software': 'Open Build Request',
-                                      'construction': 'custom builds',
                                       'consulting': 'get meaningful advice',
                                       'manufacturing': 'create product'
                                     }

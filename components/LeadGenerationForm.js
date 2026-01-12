@@ -80,38 +80,8 @@ function ServiceSelectionStep({ isDark, onServiceSelect }) {
             </div>
           </motion.button>
 
-          {/* Build Your Space Tile */}
-          <motion.button
-            onClick={() => {
-              window.location.href = 'https://develloconstruction.com';
-            }}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className={`group w-full max-w-[300px] sm:max-w-[320px] md:w-full md:max-w-full lg:max-w-[360px] h-full p-4 sm:p-4 rounded-xl sm:rounded-2xl transition-all duration-300 backdrop-blur-sm border flex items-center justify-center gap-2 sm:gap-3 ${
-              isDark
-                ? 'bg-orange-500/20 text-orange-300 border-orange-400/30 hover:bg-orange-500/30 shadow-lg'
-                : 'bg-orange-500/20 text-orange-700 border-orange-400/30 hover:bg-orange-500/30 shadow-lg'
-            }`}
-          >
-            <div className="flex-shrink-0 relative w-6 h-6 sm:w-6 sm:h-6 flex items-center justify-center px-2">
-              {/* Main icons - always visible on mobile, hover swap on desktop */}
-              <div className="absolute opacity-100 md:group-hover:opacity-0 transition-opacity duration-200">
-                <Home className="w-6 h-6 sm:w-6 sm:h-6 relative" />
-                <Hammer className="w-3 h-3 sm:w-3 sm:h-3 absolute -bottom-0.5 -right-0.5" />
-              </div>
-              {/* Hover icon - only visible on desktop hover */}
-              <MousePointerClick className="w-6 h-6 sm:w-6 sm:h-6 absolute opacity-0 md:group-hover:opacity-100 transition-opacity duration-200 hidden md:block" />
-            </div>
-            <div className="flex-1 text-center max-w-[180px] sm:max-w-[220px] md:max-w-[280px]">
-              <div className="flex items-center justify-center gap-2 mb-1.5 sm:mb-2">
-                <h3 className="text-base sm:text-base md:text-sm lg:text-base font-semibold whitespace-nowrap">Build Your Space</h3>
-              </div>
-              <div className="flex items-center justify-center gap-2">
-                <span className="text-sm md:text-xs lg:text-sm leading-tight md:whitespace-nowrap">Construction services</span>
-                <Hand className="w-4 h-4 md:hidden" />
-              </div>
-            </div>
-          </motion.button>
+          {/* Build Your Space Tile - Removed for software development focus */}
+          {/* Construction services are handled separately on develloconstruction.com */}
 
           {/* Build Your Company Tile */}
           <motion.button

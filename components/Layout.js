@@ -754,8 +754,6 @@ function Footer() {
   const isMainDomain = currentDomain === 'develloinc.com';
   const isStudiosDomain = currentDomain.includes('devellostudios.com');
   const isTechDomain = currentDomain.includes('devellotech.com');
-  const isConstructionDomain = currentDomain.includes('develloconstruction.com');
-  const isShopDomain = currentDomain.includes('devello.shop');
   
   return (
     <footer 
@@ -795,33 +793,15 @@ function Footer() {
                 Devello Tech
               </a>
             )}
-            {!isConstructionDomain && (
-              <a 
-                href="https://develloconstruction.com" 
-                className="hover:opacity-100 opacity-70 transition-opacity"
-                rel="noopener noreferrer"
-              >
-                Devello Construction
-              </a>
-            )}
-            {!isShopDomain && (
-              <a 
-                href="https://develloinc.com/storecatalogue" 
-                className="hover:opacity-100 opacity-70 transition-opacity"
-                rel="noopener noreferrer"
-              >
-                Devello Shop
-              </a>
-            )}
           </div>
         </div>
         
         <div className="text-center">
           <p className="text-sm font-normal tracking-normal">
-            Professional AI tools for real estate and design
+            Professional software development and digital solutions
           </p>
           <p className="text-xs mt-2 opacity-70">
-            © 2024 Devello Inc. Transform your property photos.
+            © 2024 Devello Inc. Custom software development services.
           </p>
         </div>
       </div>

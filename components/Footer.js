@@ -9,9 +9,6 @@ export default function Footer({ variant = 'full', loading = false }) {
   
   // Check if we're on an admin page
   const isAdminPage = router.pathname.startsWith('/admin');
-  
-  // Check if we're on the construction page
-  const isConstructionPage = router.pathname === '/construction';
 
   // Hide footer during loading
   if (loading) {
@@ -72,22 +69,6 @@ export default function Footer({ variant = 'full', loading = false }) {
             Apps
           </a>
           <Link 
-            href="/construction" 
-            className={`text-sm transition-colors hover:opacity-80 ${
-              isDark ? 'text-white/70 hover:text-white' : 'text-gray-600 hover:text-gray-800'
-            }`}
-          >
-            Construction
-          </Link>
-          <Link 
-            href="/storecatalogue" 
-            className={`text-sm transition-colors hover:opacity-80 ${
-              isDark ? 'text-white/70 hover:text-white' : 'text-gray-600 hover:text-gray-800'
-            }`}
-          >
-            Store
-          </Link>
-          <Link 
             href="/about" 
             className={`text-sm transition-colors hover:opacity-80 ${
               isDark ? 'text-white/70 hover:text-white' : 'text-gray-600 hover:text-gray-800'
@@ -102,63 +83,17 @@ export default function Footer({ variant = 'full', loading = false }) {
           <div className={`mb-8 space-y-6 ${
             isDark ? 'text-white/70' : 'text-gray-600'
           }`}>
-            {isConstructionPage ? (
-              <>
-                {/* Statement of Integrity - Construction Page Only */}
-                <div>
-                  <h3 className={`font-semibold mb-2 text-sm ${
-                    isDark ? 'text-white' : 'text-gray-800'
-                  }`}>
-                    Statement of Integrity
-                  </h3>
-                  <p className="text-xs leading-relaxed">
-                    Devello Construction was the primary renovation firm for all featured projects. All images are professionally photographed. Devello Construction built and renovated the spaces shown. Furniture, furnishings, and decorative items were provided by clients and are not included in our construction services.
-                  </p>
-                </div>
-                {/* Disclaimer - Construction Page */}
-                <div>
-                  <h3 className={`font-semibold mb-2 text-sm ${
-                    isDark ? 'text-white' : 'text-gray-800'
-                  }`}>
-                    Disclaimer
-                  </h3>
-                  <p className="text-xs leading-relaxed">
-                    Devello Inc operates as a separate entity from Devello Construction. All construction business, services, and projects are handled exclusively by Devello Construction. Product images, specifications, measurements, and availability are for reference and may vary. Customers are responsible for verifying dimensions, compatibility, and local code requirements. Devello Construction is not responsible for errors arising from incorrect measurements or installation.
-                  </p>
-                </div>
-              </>
-            ) : (
-              <>
-                {/* Standard Disclaimer - Other Pages */}
-                <div>
-                  <h3 className={`font-semibold mb-2 text-sm ${
-                    isDark ? 'text-white' : 'text-gray-800'
-                  }`}>
-                    Disclaimer
-                  </h3>
-                  <p className="text-xs leading-relaxed">
-                    Product images, specifications, measurements, and availability are for reference and may vary. Customers are responsible for verifying dimensions, compatibility, and local code requirements. Devello is not responsible for errors arising from incorrect measurements or installation.
-                  </p>
-                </div>
-                <div>
-                  <h3 className={`font-semibold mb-2 text-sm flex items-center gap-2 ${
-                    isDark ? 'text-white' : 'text-gray-800'
-                  }`}>
-                    Shipping Policy
-                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                      isDark 
-                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                        : 'bg-amber-100 text-amber-700 border border-amber-200'
-                    }`}>
-                      Coming Soon
-                    </span>
-                  </h3>
-                  <p className="text-xs leading-relaxed">
-                    Shipping costs vary by destination, product type, and delivery requirements. Estimates are non-binding; final freight charges are confirmed after order review. All shipments are insured. Customers must inspect deliveries upon arrival and report damage within 48 hours.
-                  </p>
-                </div>
-              </>
-            )}
+            {/* Standard Disclaimer */}
+            <div>
+              <h3 className={`font-semibold mb-2 text-sm ${
+                isDark ? 'text-white' : 'text-gray-800'
+              }`}>
+                Disclaimer
+              </h3>
+              <p className="text-xs leading-relaxed">
+                Devello Inc provides software development services, AI-powered tools, and digital solutions. Service deliverables and outcomes are subject to the specifications and terms outlined in individual service agreements. We strive to meet agreed-upon specifications but cannot guarantee results beyond what is explicitly stated in service contracts.
+              </p>
+            </div>
           </div>
         )}
 

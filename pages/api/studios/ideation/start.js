@@ -93,7 +93,7 @@ export default async function handler(req, res) {
       success: true,
       ideaId: job.id,
       status: 'queued',
-      message: 'Ideation job started'
+      message: 'Whispering to the machines...'
     });
 
   } catch (error) {

@@ -6,10 +6,10 @@ export default function About() {
   return (
     <>
       <SEOComponent 
-        title="About Devello Studios – AI-Powered Creative Tools"
-        description="Learn about Devello Studios, a collection of AI-powered creative tools for photo editing and design. Professional tools for designers and photographers."
-        keywords="about devello studios, devello studios, AI tools, photo editing software, design tools"
-        url="https://devellostudios.com/about"
+        title="About Devello Inc – Software Development Company"
+        description="Learn about Devello Inc, a software development firm specializing in custom software solutions, web applications, AI integration, and digital platform development."
+        keywords="about devello inc, software development company, custom software, web development, app development, digital solutions, software consulting"
+        url="https://develloinc.com/about"
       />
       
       <AboutPage />

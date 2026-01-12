@@ -9,7 +9,7 @@ export default function Terms() {
     <>
       <Head>
         <title>Terms of Service - Devello Inc</title>
-        <meta name="description" content="Terms of Service for Devello Inc - AI image editing platform." />
+        <meta name="description" content="Terms of Service for Devello Inc - Software development services and digital solutions." />
       </Head>
 
       <div className={`min-h-screen py-12 transition-colors duration-700 ${
@@ -109,7 +109,6 @@ export default function Terms() {
               <ul>
                 <li><strong>Software Services:</strong> Subscription fees and one-time purchases are billed in advance. All fees are non-refundable unless otherwise specified.</li>
                 <li><strong>Consulting Services:</strong> Fees are typically billed per session or project as specified in service agreements. Payment terms and refund policies are outlined in individual consultation contracts.</li>
-                <li><strong>E-commerce Products:</strong> Payment is required at checkout. Refund and return policies are specified in individual product listings and shipping policies.</li>
               </ul>
               <p>
                 We reserve the right to change pricing with 30 days&apos; notice to existing subscribers. For project-based services, pricing changes do not affect active contracts.
